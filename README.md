@@ -92,4 +92,4 @@ Thanks to [JavaScript Mastery](https://www.youtube.com/@javascriptmastery) for t
 
 This README summarizes how I understand the concepts of 3D development with Three.js.  
 For further details, visit the [official Three.js documentation](https://threejs.org/docs/).
-Enchant with GPT.
+Enchanted with GPT.
