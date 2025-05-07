@@ -34,8 +34,7 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 
 // 6. Add OrbitControls
-const controls = new OrbitControls((camera, renderer.domElement));
-controls.enableDamping = true;
+const controls = new OrbitControls(camera, renderer.domElement);controls.enableDamping = true;
 controls.dampingFactor = 0.05;
 controls.enableZoom = true;
 controls.enablePan = true;
@@ -44,8 +43,8 @@ controls.enablePan = true;
 function animate() {
     requestAnimationFrame(animate);
 
-    dodecahedron.rotation.x += 0.01;
-    dodecahedron.rotation.y += 0.01;
+    dodecahedron.rotation.z += 0.005;
+    dodecahedron.rotation.y -= 0.005;
 
     box.rotation.y += 0.005;
 
