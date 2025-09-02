@@ -2,7 +2,7 @@ import { useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import {useEffect, useRef} from "react";
 
-export default function GreenHat(props) {
+export default function RedHat(props) {
     const { scene } = useGLTF("/models/green_hat.glb");
     const ref = useRef();
 
