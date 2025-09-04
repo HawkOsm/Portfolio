@@ -1,11 +1,12 @@
 import React, {Suspense} from "react";
 import { Canvas } from "@react-three/fiber";
 import { PerspectiveCamera } from "@react-three/drei";
-import RedHat from "../components/RedHat.jsx";
+import GitHub from "../components/GitHub.jsx";
+import ReactLogo from "../components/ReactLogo.jsx";
 import CanvasLoader from "../components/CanvasLoader.jsx";
 import {useMediaQuery} from "react-responsive";
 import {calculateSizes} from "../constants/index.js";
-import Target from "../components/Target.jsx";
+import Laptop from "../components/Laptop.jsx";
 
 const Hero = () => {
     const isTablet = useMediaQuery({maxWidth: 1024, minWidth: 769})
@@ -31,20 +32,24 @@ const Hero = () => {
 
 
                     <PerspectiveCamera makeDefault position={[0, 0, 30]} />
-                    {/* Add lighting so the model is visible */}
 
-                    <RedHat scale={sizes.deskScale}
-                            position={sizes.deskPosition}
+
+                    <Laptop scale={sizes.laptopScale}
+                            position={sizes.laptopPosition}
                             rotation={[0, -Math.PI / 100, 0]}/>
 
                         <group >
-                            <Target
-                                position={sizes.targetPosition}
+                            <GitHub
+                                position={sizes.githubPosition}
+                                scale={sizes.githubScale}
+                            />
+                            <ReactLogo
+                                position={sizes.reactLogoPosition}
                             />
                         </group>
 
-                        <ambientLight intensity={0.5} />
-                        <directionalLight intensity={0.5} />
+                        <ambientLight intensity={1.5} />
+                        <directionalLight intensity={2.5} direction={[1, 1, 1]} />
 
                     </Suspense>
                 </Canvas>
