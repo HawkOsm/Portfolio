@@ -30,13 +30,13 @@ export default function Laptop({ hinge = -0.425, ...props }) {
         )
         laptopRef.current.position.y = THREE.MathUtils.lerp(
             laptopRef.current.position.y,
-            (-2 + Math.sin(t)) / 3,
+            ((-2 + Math.sin(t)) / 3) -2.6,
             0.1
         )
     })
 
     return (
-        <group ref={laptopRef} {...props} dispose={null}>
+        <group ref={laptopRef} {...props} dispose={null} >
             {/* Hinge / Screen */}
             <three.group rotation-x={hinge} position={[0, -0.04, 0.41]}>
                 <group position={[0, 2.96, -0.13]} rotation={[Math.PI / 2, 0, 0]}>

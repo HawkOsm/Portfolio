@@ -7,6 +7,8 @@ import CanvasLoader from "../components/CanvasLoader.jsx";
 import {useMediaQuery} from "react-responsive";
 import {calculateSizes} from "../constants/index.js";
 import Laptop from "../components/Laptop.jsx";
+import PythonLogo from "../components/PythonLogo.jsx";
+import SpaceInvaders from "../components/SpaceInvaders.jsx";
 
 const Hero = () => {
     const isTablet = useMediaQuery({maxWidth: 1024, minWidth: 769})
@@ -45,6 +47,14 @@ const Hero = () => {
                             />
                             <ReactLogo
                                 position={sizes.reactLogoPosition}
+                            />
+                            <PythonLogo
+                                position={sizes.ringPosition}
+                                scale={sizes.ringScale}
+                            />
+                            <SpaceInvaders
+                                position={sizes.cubePosition}
+                                scale={sizes.cubeScale}
                             />
                         </group>
 
