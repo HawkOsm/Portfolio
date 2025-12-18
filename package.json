@@ -12,6 +12,7 @@
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
     "@gsap/react": "^2.1.2",
+    "@react-buddy/ide-toolbox": "^2.4.0",
     "@react-spring/three": "^10.0.1",
     "@react-three/drei": "^10.7.7",
     "@react-three/fiber": "^9.4.2",
@@ -19,12 +20,11 @@
     "gsap": "^3.13.0",
     "leva": "^0.10.0",
     "maath": "^0.10.8",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-globe.gl": "^2.37.0",
     "react-responsive": "^10.0.1",
-    "three": "^0.176.0",
-    "@react-buddy/ide-toolbox": "^2.4.0"
+    "three": "^0.176.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
