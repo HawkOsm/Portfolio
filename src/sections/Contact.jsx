@@ -22,8 +22,8 @@ const Contact = () => {
 
     emailjs
       .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID="service_o029aq5",
+        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID="template_0yhwu5g",
         {
           from_name: form.name,
           to_name: 'Osman Şahin Güler',
@@ -31,7 +31,7 @@ const Contact = () => {
           to_email: 'osmansahinguler@gmail.com',
           message: form.message,
         },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY,
+        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY="WwERb2CbFyThOom_p",
       )
       .then(
         () => {
@@ -74,7 +74,7 @@ const Contact = () => {
         <div className="contact-container">
           <h3 className="head-text">Let's talk</h3>
           <p className="text-lg text-white-600 mt-3">
-            Whether you’re looking to build a new website, improve your existing platform, or bring a unique project to
+            Whether you’re looking for new employees, collaboration, or interns to make your ideas come to the
             life, I’m here to help.
           </p>
 
@@ -88,7 +88,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="field-input"
-                placeholder="ex., John Doe"
+                placeholder="ex., Mehmet Murt"
               />
             </label>
 
@@ -101,7 +101,7 @@ const Contact = () => {
                 onChange={handleChange}
                 required
                 className="field-input"
-                placeholder="ex., johndoe@gmail.com"
+                placeholder="ex., mehmetmurt@gmail.com"
               />
             </label>
 
@@ -114,7 +114,7 @@ const Contact = () => {
                 required
                 rows={5}
                 className="field-input"
-                placeholder="Share your thoughts or inquiries..."
+                placeholder="I wanna give you a job..."
               />
             </label>
 

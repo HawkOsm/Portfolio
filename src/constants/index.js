@@ -98,44 +98,35 @@ export const myProjects = [
 
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
     return {
-        laptopScale: isSmall ? 0.3 : isMobile ? 0.6 : 1.2,
+        laptopScale: isSmall ? 0.3 : isMobile ? 1 : 1.2,
         laptopPosition: isMobile ? [0, -8, 0] : [0, -8, 0],
         cubePosition: isSmall ? [4, -7.25, 0] : isMobile ? [5, -7.25, 0] : isTablet ? [5, -7.25, 0] : [9.5, -7.25, 0],
-        cubeScale: isSmall ? 7.5 : isMobile ? 15 : 30,
+        cubeScale: isSmall ? 0 : isMobile ? 0 : 30,
         reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [9, 3, 0],
         ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-9.3, 3, 0],
-        ringScale: isSmall ? 0.0125 : isMobile ? 0.025 : 0.05,
+        ringScale: isSmall ? 0 : isMobile ? 0 : 0.05,
         githubPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-10, -13, -10],
-        githubScale: isSmall ? 0.3 : isMobile ? 0.6 : 1.5,
+        githubScale: isSmall ? 0 : isMobile ? 0 : 1.5,
     };
 };
 
 export const workExperiences = [
     {
         id: 1,
-        name: 'Framer',
-        pos: 'Lead Web Developer',
-        duration: '2022 - Present',
-        title: "Framer serves as my go-to tool for creating interactive prototypes. I use it to bring designs to  life, allowing stakeholders to experience the user flow and interactions before development.",
-        icon: '/assets/framer.svg',
-        animation: 'victory',
+        name: 'CLB Automation',
+        pos: 'Software Engineering Intern',
+        duration: '2024 - 2025',
+        title: "I am working as a Software Engineering Intern at CLB Automation, where I contribute to automation and software-based solutions. My responsibilities include developing, testing, and improving software components used in industrial automation systems.",
+        icon: '/public/assets/figma.svg',
+        animation: 'stretching',
     },
     {
         id: 2,
-        name: 'Figma',
-        pos: 'Web Developer',
-        duration: '2020 - 2022',
-        title: "Figma is my collaborative design platform of choice. I utilize it to work seamlessly with team members and clients, facilitating real-time feedback and design iterations. Its cloud-based.",
-        icon: '/assets/figma.svg',
-        animation: 'clapping',
-    },
-    {
-        id: 3,
-        name: 'Notion',
-        pos: 'Junior Web Developer',
-        duration: '2019 - 2020',
-        title: "Notion helps me keep my projects organized. I use it for project management, task tracking, and as a central hub for documentation, ensuring that everything from design notes to.",
-        icon: '/assets/notion.svg',
-        animation: 'salute',
+        name: 'Yaşar Savaşan İHA (TÜBİTAK Team)',
+        pos: 'Software Team Member',
+        duration: '2025 - Present',
+        title: "I am a software team member in the Savaşan İHA TÜBİTAK team, where I work on autonomous systems and UAV-related software. My focus includes algorithm development, system integration, and improving performance for competition-ready unmanned aerial vehicles.",
+        icon: '/public/assets/notion.svg',
+        animation: 'surprised',
     },
 ];
