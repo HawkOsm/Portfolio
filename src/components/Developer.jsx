@@ -10,13 +10,13 @@ import { SkeletonUtils } from 'three-stdlib';
 const Developer = ({ animationName = 'idle', ...props }) => {
     const group = useRef();
 
-    const { scene } = useGLTF('/models/human/Developer.glb');
+    const { scene } = useGLTF('./models/human/Developer.glb');
     const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene]);
     const { nodes, materials } = useGraph(clone);
 
-    const { animations: idleAnimation } = useFBX('/models/human/Idle.fbx');
-    const { animations: stretchingAnimation } = useFBX('/models/human/Stretching.fbx');
-    const { animations: surprisedAnimation } = useFBX('/models/human/Surprised.fbx');
+    const { animations: idleAnimation } = useFBX('./models/human/Idle.fbx');
+    const { animations: stretchingAnimation } = useFBX('./models/human/Stretching.fbx');
+    const { animations: surprisedAnimation } = useFBX('./models/human/Surprised.fbx');
 
     idleAnimation[0].name = 'idle';
     stretchingAnimation[0].name = 'stretching';
@@ -96,6 +96,6 @@ const Developer = ({ animationName = 'idle', ...props }) => {
     )
 }
 
-useGLTF.preload('/models/human/Developer.glb')
+useGLTF.preload('./models/human/Developer.glb')
 
 export default Developer

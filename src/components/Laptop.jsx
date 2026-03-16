@@ -29,10 +29,10 @@ export default function Laptop({ hinge = -0.425, ...props }) {
             0.1
         )
         laptopRef.current.position.y = THREE.MathUtils.lerp(
-            laptopRef.current.position.y,
-            ((-2 + Math.sin(t)) / 3) -2.6,
-            0.1
-        )
+                    laptopRef.current.position.y,
+                    ((-2 + Math.sin(t)) / 3) -2.6,
+                    0.1
+                )
     })
 
     return (

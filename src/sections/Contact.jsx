@@ -17,51 +17,51 @@ const Contact = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoading(true);
+      e.preventDefault();
+      setLoading(true);
 
-    emailjs
-      .send(
-        import.meta.env.VITE_APP_EMAILJS_SERVICE_ID="service_o029aq5",
-        import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID="template_0yhwu5g",
-        {
-          from_name: form.name,
-          to_name: 'Osman Şahin Güler',
-          from_email: form.email,
-          to_email: 'osmansahinguler@gmail.com',
-          message: form.message,
-        },
-        import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY="WwERb2CbFyThOom_p",
-      )
-      .then(
-        () => {
-          setLoading(false);
-          showAlert({
-            show: true,
-            text: 'Thank you for your message 😃',
-            type: 'success',
-          });
+      emailjs
+          .send(
+              import.meta.env.VITE_APP_EMAILJS_SERVICE_ID, // No "=" sign here
+              import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID, // No "=" sign here
+              {
+                  from_name: form.name,
+                  to_name: 'Osman Şahin Güler',
+                  from_email: form.email,
+                  to_email: 'osmansahinguler@gmail.com',
+                  message: form.message,
+              },
+              import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+          )
+          .then(
+              () => {
+                  setLoading(false);
+                  showAlert({
+                      show: true,
+                      text: 'Thank you for your message 😃',
+                      type: 'success',
+                  });
 
-          setTimeout(() => {
-            hideAlert(false);
-            setForm({
-              name: '',
-              email: '',
-              message: '',
-            });
-          }, [3000]);
-        },
-        (error) => {
-          setLoading(false);
-          console.error(error);
+                  setTimeout(() => {
+                      hideAlert();
+                      setForm({
+                          name: '',
+                          email: '',
+                          message: '',
+                      });
+                  }, 3000); // Fixed the [3000] array issue here too
+              },
+              (error) => {
+                  setLoading(false);
+                  console.error(error);
 
-          showAlert({
-            show: true,
-            text: "I didn't receive your message 😢",
-            type: 'danger',
-          });
-        },
-      );
+                  showAlert({
+                      show: true,
+                      text: "I didn't receive your message 😢",
+                      type: 'danger',
+                  });
+              },
+          );
   };
 
   return (

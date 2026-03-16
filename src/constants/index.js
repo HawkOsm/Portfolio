@@ -26,33 +26,33 @@ export const clientReviews = [
         id: 1,
         name: 'Emily Johnson',
         position: 'Marketing Director at GreenLeaf',
-        img: 'assets/review1.png',
+        img: './assets/review1.png',
         review:
-            'Working with Adrian was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.',
+            'Working with Osman was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.',
     },
     {
         id: 2,
         name: 'Mark Rogers',
         position: 'Founder of TechGear Shop',
-        img: 'assets/review2.png',
+        img: './assets/review2.png',
         review:
-            'Adrian’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional! Fantastic work.',
+            'Osman’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional! Fantastic work.',
     },
     {
         id: 3,
         name: 'John Dohsas',
         position: 'Project Manager at UrbanTech ',
-        img: 'assets/review3.png',
+        img: './assets/review3.png',
         review:
-            'I can’t say enough good things about Adrian. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.',
+            'I can’t say enough good things about Osman. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.',
     },
     {
         id: 4,
         name: 'Ether Smith',
         position: 'CEO of BrightStar Enterprises',
-        img: 'assets/review4.png',
+        img: './assets/review4.png',
         review:
-            'Adrian was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
+            'Osman was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
     },
 ];
 
@@ -63,34 +63,34 @@ export const myProjects = [
         subdesc:
             'Built using modern machine learning tools and frameworks, the system is optimized for performance and scalability, with a strong emphasis on learning through hands-on experimentation and real-world data.'
         ,
-        texture: '/textures/project/project1.mp4',
-        logo: '/assets/opencv.png',
+        texture: './textures/project/project1.mp4',
+        logo: './assets/opencv.png',
         logoStyle: {
             backgroundColor: '#2A1816',
             border: '0.2px solid #36201D',
             boxShadow: '0px 0px 60px 0px #AA3C304D',
         },
-        spotlight: '/assets/spotlight1.png',
+        spotlight: './assets/spotlight1.png',
         tags: [
             {
                 id: 1,
                 name: 'ReactLogo.js',
-                path: '/assets/react.svg',
+                path: './assets/react.svg',
             },
             {
                 id: 2,
                 name: 'TailwindCSS',
-                path: 'assets/tailwindcss.png',
+                path: './assets/tailwindcss.png',
             },
             {
                 id: 3,
                 name: 'TypeScript',
-                path: '/assets/typescript.png',
+                path: './assets/typescript.png',
             },
             {
                 id: 4,
                 name: 'Framer Motion',
-                path: '/assets/framer.png',
+                path: './assets/framer.png',
             },
         ],
     }
@@ -98,11 +98,12 @@ export const myProjects = [
 
 export const calculateSizes = (isSmall, isMobile, isTablet) => {
     return {
-        laptopScale: isSmall ? 0.3 : isMobile ? 1 : 1.2,
+        laptopScale: isSmall ? 0.7 : isMobile ? 1 : 1.2,
         laptopPosition: isMobile ? [0, -8, 0] : [0, -8, 0],
         cubePosition: isSmall ? [4, -7.25, 0] : isMobile ? [5, -7.25, 0] : isTablet ? [5, -7.25, 0] : [9.5, -7.25, 0],
         cubeScale: isSmall ? 0 : isMobile ? 0 : 30,
-        reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [9, 3, 0],
+        reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [10.2, 3, 0],
+        reactLogoScale: isSmall ? 0 : isMobile ? 0 : 0.45,
         ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-9.3, 3, 0],
         ringScale: isSmall ? 0 : isMobile ? 0 : 0.05,
         githubPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-10, -13, -10],
@@ -113,20 +114,20 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
 export const workExperiences = [
     {
         id: 1,
-        name: 'CLB Automation',
-        pos: 'Software Engineering Intern',
-        duration: '2024 - 2025',
-        title: "I am working as a Software Engineering Intern at CLB Automation, where I contribute to automation and software-based solutions. My responsibilities include developing, testing, and improving software components used in industrial automation systems.",
-        icon: '/public/assets/figma.svg',
+        name: 'Yaşar-Anafrata UAV Team',
+        pos: 'Autonomous Systems & Software Developer',
+        duration: 'Sep 2024 - Present',
+        title: "Developing object detection pipelines using YOLO and Pinhole Camera Models. Optimized for high-altitude small object detection. Managing UAV missions via MAVLink and ArduPilot. Experience in simulation (Gazebo/SITL) and edge device optimization (Raspberry Pi/GStreamer).",
+        icon: './assets/figma.svg',
         animation: 'stretching',
     },
     {
         id: 2,
-        name: 'Yaşar Savaşan İHA (TÜBİTAK Team)',
-        pos: 'Software Team Member',
-        duration: '2025 - Present',
-        title: "I am a software team member in the Savaşan İHA TÜBİTAK team, where I work on autonomous systems and UAV-related software. My focus includes algorithm development, system integration, and improving performance for competition-ready unmanned aerial vehicles.",
-        icon: '/public/assets/notion.svg',
+        name: 'CLB Automation',
+        pos: 'Software Developer (Intern/Prototype)',
+        duration: 'Jan 2025 - Oct 2025',
+        title: "Developed computer vision prototypes for object detection using OpenCV and YOLO. Optimized data processing pipelines and conducted feasibility studies through model training on custom datasets.",
+        icon: './assets/notion.svg',
         animation: 'surprised',
     },
 ];

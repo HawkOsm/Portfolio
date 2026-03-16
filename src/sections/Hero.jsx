@@ -50,6 +50,7 @@ const Hero = () => {
                             />
                             <ReactLogo
                                 position={sizes.reactLogoPosition}
+                                scale={sizes.reactLogoScale}
                             />
                             <PythonLogo
                                 position={sizes.ringPosition}
@@ -71,7 +72,7 @@ const Hero = () => {
 
             <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
                 <a href="#about" className="w-fit">
-                    <Button name={"Let's Work"} isBeam containerClass="sm: w-full sm:min-w-96"/>
+                    <Button name={"Let's Work"} isBeam containerClass="sm:w-full sm:min-w-96"/>
                 </a>
             </div>
         </section>
