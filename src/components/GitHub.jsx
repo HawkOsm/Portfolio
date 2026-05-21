@@ -1,12 +1,11 @@
 import {Float, useGLTF} from "@react-three/drei";
 import { useRef } from "react";
-import {useGSAP} from "@gsap/react";
 
 export default function GitHub(props) {
     const { scene } = useGLTF("/models/github.glb");
     const ref = useRef();
 
-    return (<Float floatIntensity={0.5}>
+    return (<Float speed={1.4} rotationIntensity={0.4} floatIntensity={0.6}>
         <primitive ref={ref} object={scene} {...props} />
     </Float>)
 }

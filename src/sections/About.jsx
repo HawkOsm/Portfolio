@@ -2,9 +2,11 @@ import { useState } from 'react';
 import Globe from 'react-globe.gl';
 
 import Button from '../components/Button.jsx';
+import useInView from '../hooks/useInView.js';
 
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false);
+    const [globeRef, globeInView] = useInView({ rootMargin: '200px' });
 
     const handleCopy = () => {
         navigator.clipboard.writeText('osmansahinguler@gmail.com')
@@ -51,17 +53,19 @@ const About = () => {
 
                 <div className="col-span-1 xl:row-span-4">
                     <div className="grid-container">
-                        <div className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
-                            <Globe
-                                height={326}
-                                width={326}
-                                backgroundColor="rgba(0, 0, 0, 0)"
-                                backgroundImageOpacity={0.5}
-                                showAtmosphere
-                                showGraticules
-                                globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
-                                bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
-                            />
+                        <div ref={globeRef} className="rounded-3xl w-full sm:h-[326px] h-fit flex justify-center items-center">
+                            {globeInView && (
+                                <Globe
+                                    height={326}
+                                    width={326}
+                                    backgroundColor="rgba(0, 0, 0, 0)"
+                                    backgroundImageOpacity={0.5}
+                                    showAtmosphere
+                                    showGraticules
+                                    globeImageUrl="//unpkg.com/three-globe/example/img/earth-night.jpg"
+                                    bumpImageUrl="//unpkg.com/three-globe/example/img/earth-topology.png"
+                                />
+                            )}
                         </div>
                         <div>
                             <p className="grid-headtext">Looking for opportunity</p>

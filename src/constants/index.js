@@ -108,6 +108,8 @@ export const calculateSizes = (isSmall, isMobile, isTablet) => {
         ringScale: isSmall ? 0 : isMobile ? 0 : 0.05,
         githubPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-10, -13, -10],
         githubScale: isSmall ? 0 : isMobile ? 0 : 1.5,
+        glyphPosition: isSmall ? [4, -7.25, 0] : isMobile ? [5, -7.25, 0] : isTablet ? [5, -7.25, 0] : [9, -7.25, 0],
+        glyphScale: isSmall ? 0 : isMobile ? 0 : 1.4,
     };
 };
 

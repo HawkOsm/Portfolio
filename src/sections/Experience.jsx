@@ -5,9 +5,11 @@ import { OrbitControls } from '@react-three/drei';
 import Developer from '../components/Developer.jsx';
 import CanvasLoader from '../components/Loading.jsx';
 import { workExperiences } from '../constants/index.js';
+import useInView from '../hooks/useInView.js';
 
 const WorkExperience = () => {
     const [animationName, setAnimationName] = useState('idle');
+    const [canvasRef, inView] = useInView({ rootMargin: '200px' });
 
     return (
         <section className="c-space my-20" id="work">
@@ -15,10 +17,10 @@ const WorkExperience = () => {
                 <p className="head-text">My Work Experience</p>
 
                 <div className="work-container">
-                    <div className="work-canvas">
-                        <Canvas>
-                            <ambientLight intensity={7} />
-                            <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
+                    <div ref={canvasRef} className="work-canvas">
+                        <Canvas dpr={[1, 1.5]} frameloop={inView ? 'always' : 'never'}>
+                            <ambientLight intensity={2.5} />
+                            <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={2} />
                             <directionalLight position={[10, 10, 10]} intensity={1} />
                             <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
 
