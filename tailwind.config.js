@@ -3,28 +3,22 @@ export default {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     theme: {
         extend: {
-            fontFamily: {
-                generalsans: ['General Sans', 'sans-serif'],
-            },
             colors: {
-                black: {
-                    DEFAULT: '#000',
-                    100: '#010103',
-                    200: '#0E0E10',
-                    300: '#1C1C21',
-                    500: '#3A3A49',
-                    600: '#1A1A1A',
-                },
-                white: {
-                    DEFAULT: '#FFFFFF',
-                    800: '#E4E4E6',
-                    700: '#D6D9E9',
-                    600: '#AFB0B6',
-                    500: '#62646C',
-                },
+                ink: '#0B0C0E',
+                panel: '#131418',
+                line: '#26282E',
+                paper: '#E9E7E2',
+                muted: '#8E9198',
+                buff: '#D9CBA3',
+                signal: '#E4572E',
             },
-            backgroundImage: {
-                terminal: "url('/assets/terminal.png')",
+            fontFamily: {
+                display: ['"Saira Condensed"', 'sans-serif'],
+                sans: ['"Instrument Sans"', 'sans-serif'],
+                mono: ['"Spline Sans Mono"', 'monospace'],
+            },
+            maxWidth: {
+                site: '1120px',
             },
         },
     },

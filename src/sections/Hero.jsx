@@ -1,87 +1,55 @@
-import React, {Suspense} from "react";
-import { Canvas } from "@react-three/fiber";
-import { PerspectiveCamera } from "@react-three/drei";
-import GitHub from "../components/GitHub.jsx";
-import ReactLogo from "../components/ReactLogo.jsx";
-import CanvasLoader from "../components/CanvasLoader.jsx";
-import {useMediaQuery} from "react-responsive";
-import {calculateSizes} from "../constants/index.js";
-import Laptop from "../components/Laptop.jsx";
-import PythonLogo from "../components/PythonLogo.jsx";
-import DevGlyph from "../components/DevGlyph.jsx";
-import HeroCamera from "../components/HeroCamera.jsx";
-import Button from "../components/Button.jsx";
-import useInView from "../hooks/useInView.js";
+import Compass from '../components/Compass.jsx';
+import { heroFacts, CV_PATH } from '../constants/index.js';
 
 const Hero = () => {
-    const isTablet = useMediaQuery({maxWidth: 1024, minWidth: 769})
-    const isMobile = useMediaQuery({maxWidth: 768})
-    const isSmall = useMediaQuery({maxWidth: 480})
-
-    const sizes = calculateSizes(isSmall, isMobile, isTablet);
-    const [sectionRef, inView] = useInView({ rootMargin: '200px' });
-
     return (
-        <section id="home" ref={sectionRef} className="min-h-screen w-full flex flex-col relative">
-            <div className="w-full mx-auto flex flex-col sm:mt-36 mt-20 gap-3">
-                <p className="sm:text-3xl text-3xl font-medium text-white text-center">
-                    Hi, I'm Osman Şahin
-                </p>
-                <p className="hero_tag text text-gray_gradient">
-                    Developing, Learning & Exploring.
-                </p>
+        <section id="top" className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+            {/* compass — the one decorative element on the page */}
+            <div className="absolute top-1/2 -translate-y-1/2 -right-40 lg:-right-24 xl:right-0 w-[520px] h-[520px] max-lg:w-[420px] max-lg:h-[420px] max-sm:w-[360px] max-sm:h-[360px] max-lg:opacity-40 text-paper pointer-events-none select-none">
+                <Compass className="w-full h-full" />
             </div>
 
-            <div className="w-full h-full absolute inset-0">
-                <Canvas
-                    className="w-full h-full"
-                    dpr={1}
-                    frameloop={inView ? 'always' : 'never'}
-                    performance={{ min: 0.5 }}
-                    gl={{ antialias: false, powerPreference: 'high-performance' }}
-                >
-                    <Suspense fallback={<CanvasLoader/>}>
+            <div className="container-site relative z-10 pt-28 pb-16 w-full">
+                <p className="font-mono text-xs tracking-[0.25em] uppercase mb-6 flex items-center gap-3 flex-wrap">
+                    <span className="inline-block w-2 h-2 bg-signal" aria-hidden="true" />
+                    <span className="text-paper">Osman Şahin Güler</span>
+                    <span className="text-muted">· Open to remote work &amp; internships</span>
+                </p>
 
+                <h1 className="font-display font-bold uppercase leading-[0.95] text-paper"
+                    style={{ fontSize: 'clamp(3.25rem, 9vw, 7rem)' }}>
+                    I teach machines
+                    <br />
+                    <span className="text-buff">to see.</span>
+                </h1>
 
-                    <PerspectiveCamera makeDefault position={[0, 0, 30]} />
+                <p className="mt-8 max-w-xl text-lg text-muted leading-relaxed">
+                    Software engineering student in Izmir. I build autonomous kamikaze missions
+                    for fixed-wing competition UAVs — vision-guided dives, MAVLink guidance, and
+                    the edge hardware they run on. I learn by shipping real systems, not toy demos.
+                </p>
 
-                    <HeroCamera isMobile={isMobile}>
-                        <Laptop scale={sizes.laptopScale}
-                                position={sizes.laptopPosition}
-                                rotation={[0, -Math.PI / 100, 0]}/>
-                    </HeroCamera>
-
-                        <group >
-                            <GitHub
-                                position={sizes.githubPosition}
-                                scale={sizes.githubScale}
-                            />
-                            <ReactLogo
-                                position={sizes.reactLogoPosition}
-                                scale={sizes.reactLogoScale}
-                            />
-                            <PythonLogo
-                                position={sizes.ringPosition}
-                                scale={sizes.ringScale}
-                            />
-                            <DevGlyph
-                                position={sizes.glyphPosition}
-                                scale={sizes.glyphScale}
-                            />
-                        </group>
-
-                        <ambientLight intensity={1.2} />
-                        <directionalLight position={[10, 10, 5]} intensity={2.2} />
-
-
-                    </Suspense>
-                </Canvas>
+                <div className="mt-10 flex flex-wrap gap-4">
+                    <a href="#work" className="btn-primary">Selected work ↓</a>
+                    <a href={CV_PATH} download className="btn-ghost">Download CV</a>
+                </div>
             </div>
 
-            <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
-                <a href="#about" className="w-fit">
-                    <Button name={"Let's Work"} isBeam containerClass="sm:w-full sm:min-w-96"/>
-                </a>
+            {/* instrument strip */}
+            <div className="relative z-10 hairline-t">
+                <div className="container-site grid grid-cols-2 lg:grid-cols-4">
+                    {heroFacts.map(({ label, value }, i) => (
+                        <div
+                            key={label}
+                            className={`py-4 pr-6 font-mono text-xs text-muted flex gap-3 ${
+                                i > 0 ? 'lg:border-l lg:border-line lg:pl-6' : ''
+                            }`}
+                        >
+                            <span className="text-signal">{label}</span>
+                            <span className="text-paper/80">{value}</span>
+                        </div>
+                    ))}
+                </div>
             </div>
         </section>
     );

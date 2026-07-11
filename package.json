@@ -1,5 +1,5 @@
 {
-  "name": "react",
+  "name": "portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,20 +11,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
-    "@gsap/react": "^2.1.2",
-    "@react-buddy/ide-toolbox": "^2.4.0",
-    "@react-spring/three": "^10.0.1",
-    "@react-three/drei": "^9.122.0",
-    "@react-three/fiber": "^8.18.0",
     "@tailwindcss/vite": "^4.1.6",
-    "gsap": "^3.13.0",
-    "leva": "^0.10.0",
-    "maath": "^0.10.8",
     "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-globe.gl": "^2.37.0",
-    "react-responsive": "^10.0.1",
-    "three": "^0.176.0"
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
@@ -36,19 +25,17 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
-    "parcel-reporter-static-files-copy": "^1.5.3",
     "postcss": "^8.5.3",
     "tailwindcss": "^3.4.1",
     "vite": "^6.4.1"
   },
-  "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
-  "main": "eslint.config.js",
+  "description": "Personal portfolio of Osman Şahin Güler — computer vision & UAV engineering",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/HawkOsm/Portfolio.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Osman Şahin Güler",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/HawkOsm/Portfolio/issues"

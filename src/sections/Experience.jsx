@@ -1,67 +1,35 @@
-import { Suspense, useState } from 'react';
-import { Canvas } from '@react-three/fiber';
-import { OrbitControls } from '@react-three/drei';
+import Reveal from '../components/Reveal.jsx';
+import { missionLog } from '../constants/index.js';
 
-import Developer from '../components/Developer.jsx';
-import CanvasLoader from '../components/Loading.jsx';
-import { workExperiences } from '../constants/index.js';
-import useInView from '../hooks/useInView.js';
+const Experience = () => (
+    <section id="log" className="container-site pt-24 pb-10">
+        <Reveal>
+            <p className="eyebrow mb-3">Experience</p>
+            <h2 className="section-head mb-10">Where I&apos;ve worked</h2>
+        </Reveal>
 
-const WorkExperience = () => {
-    const [animationName, setAnimationName] = useState('idle');
-    const [canvasRef, inView] = useInView({ rootMargin: '200px' });
-
-    return (
-        <section className="c-space my-20" id="work">
-            <div className="w-full text-white-600">
-                <p className="head-text">My Work Experience</p>
-
-                <div className="work-container">
-                    <div ref={canvasRef} className="work-canvas">
-                        <Canvas dpr={[1, 1.5]} frameloop={inView ? 'always' : 'never'}>
-                            <ambientLight intensity={2.5} />
-                            <spotLight position={[10, 10, 10]} angle={0.3} penumbra={1} intensity={2} />
-                            <directionalLight position={[10, 10, 10]} intensity={1} />
-                            <OrbitControls enableZoom={false} maxPolarAngle={Math.PI / 2} />
-
-                            <Suspense fallback={<CanvasLoader />}>
-                                <Developer position-y={-3} scale={3} animationName={animationName} />
-                            </Suspense>
-                        </Canvas>
-                    </div>
-
-                    <div className="work-content">
-                        <div className="sm:py-10 py-5 sm:px-5 px-2.5">
-                            {workExperiences.map((item, index) => (
-                                <div
-                                    key={index}
-                                    onClick={() => setAnimationName(item.animation.toLowerCase())}
-                                    onPointerOver={() => setAnimationName(item.animation.toLowerCase())}
-                                    onPointerOut={() => setAnimationName('idle')}
-                                    className="work-content_container group">
-                                    <div className="flex flex-col h-full justify-start items-center py-2">
-                                        <div className="work-content_logo">
-                                            <img className="w-full h-full" src={item.icon} alt="" />
-                                        </div>
-
-                                        <div className="work-content_bar" />
-                                    </div>
-
-                                    <div className="sm:p-5 px-2.5 py-5">
-                                        <p className="font-bold text-white-800">{item.name}</p>
-                                        <p className="text-sm mb-5">
-                                            {item.pos} -- <span>{item.duration}</span>
-                                        </p>
-                                        <p className="group-hover:text-white transition-all ease-in-out duration-500">{item.title}</p>
-                                    </div>
-                                </div>
-                            ))}
+        <div>
+            {missionLog.map((entry, i) => (
+                <Reveal key={entry.id} delay={i * 60}>
+                    <article className="hairline-t grid md:grid-cols-[220px_1fr] gap-4 md:gap-8 py-10">
+                        <p className="font-mono text-xs tracking-widest text-signal pt-1">{entry.period}</p>
+                        <div>
+                            <h3 className="font-display font-semibold uppercase text-2xl text-paper">{entry.org}</h3>
+                            <p className="font-mono text-xs uppercase tracking-widest text-muted mt-2">{entry.role}</p>
+                            <ul className="mt-5 space-y-2 max-w-2xl">
+                                {entry.notes.map((note) => (
+                                    <li key={note} className="text-muted leading-relaxed pl-5 relative">
+                                        <span className="absolute left-0 top-[0.7em] w-2 h-px bg-signal" aria-hidden="true" />
+                                        {note}
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    );
-};
+                    </article>
+                </Reveal>
+            ))}
+        </div>
+    </section>
+);
 
-export default WorkExperience;
+export default Experience;
