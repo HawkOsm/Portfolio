@@ -1,135 +1,122 @@
 export const navLinks = [
+    { id: 1, name: 'Work', href: '#work' },
+    { id: 2, name: 'Experience', href: '#log' },
+    { id: 3, name: 'Skills', href: '#skills' },
+    { id: 4, name: 'Off screen', href: '#offscreen' },
+    { id: 5, name: 'Contact', href: '#contact' },
+];
+
+export const heroFacts = [
+    { label: 'FIX', value: '38.42°N 27.14°E — Izmir, TR' },
+    { label: 'GPA', value: '3.61 / 4.00' },
+    { label: 'SIM', value: '50+ hrs Gazebo · SITL' },
+    { label: 'ETA', value: 'B.Sc. 2027' },
+];
+
+export const projects = [
     {
-        id: 1,
-        name: 'Home',
-        href: '#home',
+        id: 'kamikaze',
+        code: '01',
+        title: 'Autonomous kamikaze dive system',
+        body: 'Mission software for a fixed-wing competition UAV (Teknofest Savaşan İHA, Anafarta team). The aircraft transits to a server-issued GPS target at 80 m altitude, pitches into an autonomous 45° dive at 80 m horizontal stand-off, and scans the ground QR marker mid-dive — dual decoders with adaptive preprocessing, readable from 40 m out. If nothing reads by 30 m it firewalls the throttle, goes around, and re-attacks from a new bearing. Dive limits come from the wing’s tested G-force envelope; every change flies in Gazebo/SITL before it flies for real.',
+        facts: ['45° dive · go-around at 30 m', 'ArduPilot · MAVLink · PID guidance', '50+ hrs SITL · flight-tested'],
+        tag: 'UAV team project',
+        link: null,
     },
     {
-        id: 2,
-        name: 'About',
-        href: '#about',
+        id: 'clevo-linux',
+        code: '02',
+        title: 'Monster Notebook Linux fixes',
+        body: 'Public field guides for Clevo-based Monster laptops on Linux: patching tuxedo-drivers DKMS modules that reject the vendor’s DMI strings, untangling epoch-pinned NVIDIA packages after kernel upgrades, re-enabling hardware-locked touchpads. Written because I hit every one of these problems myself.',
+        facts: ['DKMS · systemd · apt pinning', 'Ubuntu 24.04 · kernel 6.17+'],
+        tag: 'github.com/HawkOsm',
+        link: 'https://github.com/HawkOsm/monster-notebook-linux',
     },
     {
-        id: 3,
-        name: 'Work',
-        href: '#work',
-    },
-    {
-        id: 4,
-        name: 'Contact',
-        href: '#contact',
+        id: 'speed-swap',
+        code: '03',
+        title: 'Speed Swap — an original arcade game',
+        body: 'A one-tap arcade game built on a single mechanic: every tap swaps your velocity with the nearest ball. Custom physics simulation and difficulty design from scratch in Flutter, no game engine. In development, Android first.',
+        facts: ['Flutter · custom physics', 'in development'],
+        tag: 'in progress',
+        link: null,
     },
 ];
 
-export const clientReviews = [
+export const missionLog = [
     {
         id: 1,
-        name: 'Emily Johnson',
-        position: 'Marketing Director at GreenLeaf',
-        img: './assets/review1.png',
-        review:
-            'Working with Osman was a fantastic experience. He transformed our outdated website into a modern, user-friendly platform. His attention to detail and commitment to quality are unmatched. Highly recommend him for any web dev projects.',
-    },
-    {
-        id: 2,
-        name: 'Mark Rogers',
-        position: 'Founder of TechGear Shop',
-        img: './assets/review2.png',
-        review:
-            'Osman’s expertise in web development is truly impressive. He delivered a robust and scalable solution for our e-commerce site, and our online sales have significantly increased since the launch. He’s a true professional! Fantastic work.',
-    },
-    {
-        id: 3,
-        name: 'John Dohsas',
-        position: 'Project Manager at UrbanTech ',
-        img: './assets/review3.png',
-        review:
-            'I can’t say enough good things about Osman. He was able to take our complex project requirements and turn them into a seamless, functional website. His problem-solving abilities are outstanding.',
-    },
-    {
-        id: 4,
-        name: 'Ether Smith',
-        position: 'CEO of BrightStar Enterprises',
-        img: './assets/review4.png',
-        review:
-            'Osman was a pleasure to work with. He understood our requirements perfectly and delivered a website that exceeded our expectations. His skills in both frontend backend dev are top-notch.',
-    },
-];
-
-export const myProjects = [
-    {
-        title: 'Yolo object detection',
-        desc: 'This project is an object detection system designed to identify and localize objects in images and video streams. Using computer vision and deep learning techniques, it focuses on accurate, real-time detection for practical use cases.',
-        subdesc:
-            'Built using modern machine learning tools and frameworks, the system is optimized for performance and scalability, with a strong emphasis on learning through hands-on experimentation and real-world data.'
-        ,
-        texture: './textures/project/project1.mp4',
-        logo: './assets/opencv.png',
-        logoStyle: {
-            backgroundColor: '#2A1816',
-            border: '0.2px solid #36201D',
-            boxShadow: '0px 0px 60px 0px #AA3C304D',
-        },
-        spotlight: './assets/spotlight1.png',
-        tags: [
-            {
-                id: 1,
-                name: 'ReactLogo.js',
-                path: './assets/react.svg',
-            },
-            {
-                id: 2,
-                name: 'TailwindCSS',
-                path: './assets/tailwindcss.png',
-            },
-            {
-                id: 3,
-                name: 'TypeScript',
-                path: './assets/typescript.png',
-            },
-            {
-                id: 4,
-                name: 'Framer Motion',
-                path: './assets/framer.png',
-            },
+        period: 'SEP 2024 — NOW',
+        org: 'Yaşar-Anafrata UAV Team',
+        role: 'Autonomous Systems & Software Developer',
+        notes: [
+            'Autonomous kamikaze mission logic — takeoff, navigation, and vision-guided terminal dives onto ground targets — over ArduPilot and MAVLink.',
+            'Object-detection pipelines supporting target acquisition in high-altitude aerial imagery — YOLO v8/v11, SAHI, pinhole camera models.',
+            '50+ hours of scenario testing in Gazebo and SITL before anything touches a real airframe.',
+            'Low-latency video and hardware acceleration on Raspberry Pi with GStreamer; Docker + Portainer for the ground station.',
         ],
-    }
-];
-
-export const calculateSizes = (isSmall, isMobile, isTablet) => {
-    return {
-        laptopScale: isSmall ? 0.7 : isMobile ? 1 : 1.2,
-        laptopPosition: isMobile ? [0, -8, 0] : [0, -8, 0],
-        cubePosition: isSmall ? [4, -7.25, 0] : isMobile ? [5, -7.25, 0] : isTablet ? [5, -7.25, 0] : [9.5, -7.25, 0],
-        cubeScale: isSmall ? 0 : isMobile ? 0 : 30,
-        reactLogoPosition: isSmall ? [3, 4, 0] : isMobile ? [5, 4, 0] : isTablet ? [5, 4, 0] : [10.2, 3, 0],
-        reactLogoScale: isSmall ? 0 : isMobile ? 0 : 0.45,
-        ringPosition: isSmall ? [-5, 7, 0] : isMobile ? [-10, 10, 0] : isTablet ? [-12, 10, 0] : [-9.3, 3, 0],
-        ringScale: isSmall ? 0 : isMobile ? 0 : 0.05,
-        githubPosition: isSmall ? [-5, -10, -10] : isMobile ? [-9, -10, -10] : isTablet ? [-11, -7, -10] : [-10, -13, -10],
-        githubScale: isSmall ? 0 : isMobile ? 0 : 1.5,
-        glyphPosition: isSmall ? [4, -7.25, 0] : isMobile ? [5, -7.25, 0] : isTablet ? [5, -7.25, 0] : [9, -7.25, 0],
-        glyphScale: isSmall ? 0 : isMobile ? 0 : 1.4,
-    };
-};
-
-export const workExperiences = [
-    {
-        id: 1,
-        name: 'Yaşar-Anafrata UAV Team',
-        pos: 'Autonomous Systems & Software Developer',
-        duration: 'Sep 2024 - Present',
-        title: "Developing object detection pipelines using YOLO and Pinhole Camera Models. Optimized for high-altitude small object detection. Managing UAV missions via MAVLink and ArduPilot. Experience in simulation (Gazebo/SITL) and edge device optimization (Raspberry Pi/GStreamer).",
-        icon: './assets/figma.svg',
-        animation: 'stretching',
     },
     {
         id: 2,
-        name: 'CLB Automation',
-        pos: 'Software Developer (Intern/Prototype)',
-        duration: 'Jan 2025 - Oct 2025',
-        title: "Developed computer vision prototypes for object detection using OpenCV and YOLO. Optimized data processing pipelines and conducted feasibility studies through model training on custom datasets.",
-        icon: './assets/notion.svg',
-        animation: 'surprised',
+        period: 'JAN 2025 — OCT 2025',
+        org: 'CLB Automation',
+        role: 'Software Developer — Intern / Prototype',
+        notes: [
+            'Computer-vision prototypes for industrial object detection with OpenCV and YOLOv5.',
+            'Model training and hyperparameter optimization on custom-labeled datasets.',
+            'Performance profiling on real-time data processing pipelines.',
+        ],
+    },
+    {
+        id: 3,
+        period: 'SEP 2024 — JUN 2027',
+        org: 'Yaşar University, Izmir',
+        role: 'B.Sc. Software Engineering — GPA 3.61 / 4.00',
+        notes: [
+            'Data structures & algorithms, object-oriented design — and every side project I can fit around them.',
+        ],
     },
 ];
+
+export const instruments = [
+    {
+        group: 'Languages',
+        items: ['Python (primary)', 'C++', 'JavaScript / React', 'Dart', 'Bash'],
+    },
+    {
+        group: 'Vision & AI',
+        items: ['OpenCV', 'YOLO v5 – v11', 'SAHI', 'NumPy', 'dataset design & labeling'],
+    },
+    {
+        group: 'Flight & robotics',
+        items: ['ArduPilot', 'MAVLink', 'Gazebo', 'SITL', 'Mission Planner'],
+    },
+    {
+        group: 'Systems & ops',
+        items: ['Linux (daily driver)', 'Docker · Portainer', 'Raspberry Pi', 'GStreamer', 'Git'],
+    },
+];
+
+export const offscreen = [
+    {
+        title: 'Sailing',
+        detail:
+            'Ten years as a licensed competitive sailor. Started as a kid and never really stopped — racing, crewing, and any excuse to be out on the water.',
+    },
+    {
+        title: 'Martial arts',
+        detail: 'Regular training. It clears my head after a day at the screen, and getting thrown around a bit is more fun than it sounds.',
+    },
+    {
+        title: 'Japanese',
+        detail: 'Learning 日本語 by pure exposure — real shows, real podcasts, no textbooks. Understanding grows one episode at a time.',
+    },
+];
+
+export const socials = [
+    { name: 'GitHub', href: 'https://github.com/HawkOsm' },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/in/osman-sahin-guler/' },
+    { name: 'Email', href: 'mailto:osmansahinguler@gmail.com' },
+];
+
+export const CV_PATH = '/assets/Osman_Sahin_Guler_CV.pdf';

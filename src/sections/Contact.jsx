@@ -3,131 +3,161 @@ import { useRef, useState } from 'react';
 
 import useAlert from '../hooks/useAlert.js';
 import Alert from '../components/Alert.jsx';
+import Reveal from '../components/Reveal.jsx';
+import { socials, CV_PATH } from '../constants/index.js';
+
+const EMAIL = 'osmansahinguler@gmail.com';
 
 const Contact = () => {
-  const formRef = useRef();
+    const formRef = useRef();
+    const { alert, showAlert, hideAlert } = useAlert();
+    const [loading, setLoading] = useState(false);
+    const [hasCopied, setHasCopied] = useState(false);
+    const [form, setForm] = useState({ name: '', email: '', message: '' });
 
-  const { alert, showAlert, hideAlert } = useAlert();
-  const [loading, setLoading] = useState(false);
+    const handleChange = ({ target: { name, value } }) => {
+        setForm({ ...form, [name]: value });
+    };
 
-  const [form, setForm] = useState({ name: '', email: '', message: '' });
+    const handleCopy = () => {
+        navigator.clipboard.writeText(EMAIL).then(() => {
+            setHasCopied(true);
+            setTimeout(() => setHasCopied(false), 2000);
+        });
+    };
 
-  const handleChange = ({ target: { name, value } }) => {
-    setForm({ ...form, [name]: value });
-  };
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        setLoading(true);
 
-  const handleSubmit = (e) => {
-      e.preventDefault();
-      setLoading(true);
+        emailjs
+            .send(
+                import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
+                import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+                {
+                    from_name: form.name,
+                    to_name: 'Osman Şahin Güler',
+                    from_email: form.email,
+                    to_email: EMAIL,
+                    message: form.message,
+                },
+                import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+            )
+            .then(
+                () => {
+                    setLoading(false);
+                    showAlert({ show: true, text: 'Message sent — I usually reply within a day.', type: 'success' });
+                    setTimeout(() => {
+                        hideAlert();
+                        setForm({ name: '', email: '', message: '' });
+                    }, 3000);
+                },
+                (error) => {
+                    setLoading(false);
+                    console.error(error);
+                    showAlert({ show: true, text: `Sending failed — email me directly at ${EMAIL}.`, type: 'danger' });
+                }
+            );
+    };
 
-      emailjs
-          .send(
-              import.meta.env.VITE_APP_EMAILJS_SERVICE_ID, // No "=" sign here
-              import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID, // No "=" sign here
-              {
-                  from_name: form.name,
-                  to_name: 'Osman Şahin Güler',
-                  from_email: form.email,
-                  to_email: 'osmansahinguler@gmail.com',
-                  message: form.message,
-              },
-              import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
-          )
-          .then(
-              () => {
-                  setLoading(false);
-                  showAlert({
-                      show: true,
-                      text: 'Thank you for your message 😃',
-                      type: 'success',
-                  });
+    return (
+        <section id="contact" className="container-site pt-24 pb-24">
+            {alert.show && <Alert {...alert} />}
 
-                  setTimeout(() => {
-                      hideAlert();
-                      setForm({
-                          name: '',
-                          email: '',
-                          message: '',
-                      });
-                  }, 3000); // Fixed the [3000] array issue here too
-              },
-              (error) => {
-                  setLoading(false);
-                  console.error(error);
+            <Reveal>
+                <p className="eyebrow mb-3">Contact</p>
+                <h2 className="section-head mb-10">Let&apos;s talk</h2>
+            </Reveal>
 
-                  showAlert({
-                      show: true,
-                      text: "I didn't receive your message 😢",
-                      type: 'danger',
-                  });
-              },
-          );
-  };
+            <div className="hairline-t grid lg:grid-cols-2 gap-12 pt-10">
+                <Reveal>
+                    <p className="text-muted leading-relaxed max-w-md">
+                        Looking for an intern or junior engineer who ships real systems?
+                        I&apos;m open to remote work and internships, anywhere in the world.
+                        Write here, or reach me directly:
+                    </p>
 
-  return (
-    <section className="c-space my-20" id="contact">
-      {alert.show && <Alert {...alert} />}
+                    <button
+                        onClick={handleCopy}
+                        className="mt-8 font-mono text-lg sm:text-xl text-paper hover:text-buff transition-colors flex items-center gap-3"
+                    >
+                        {EMAIL}
+                        <span className="font-mono text-xs uppercase tracking-widest text-muted">
+                            {hasCopied ? 'copied ✓' : '[ copy ]'}
+                        </span>
+                    </button>
 
-      <div className="relative min-h-screen flex items-center justify-center flex-col">
-        <img src="/assets/terminal.png" alt="terminal-bg" className="absolute inset-0 min-h-screen" />
+                    <div className="mt-10 flex flex-wrap gap-6">
+                        {socials.map(({ name, href }) => (
+                            <a
+                                key={name}
+                                href={href}
+                                target={href.startsWith('http') ? '_blank' : undefined}
+                                rel="noopener noreferrer"
+                                className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-signal transition-colors"
+                            >
+                                {name} ↗
+                            </a>
+                        ))}
+                        <a
+                            href={CV_PATH}
+                            download
+                            className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-signal transition-colors"
+                        >
+                            CV — PDF ↓
+                        </a>
+                    </div>
+                </Reveal>
 
-        <div className="contact-container">
-          <h3 className="head-text">Let's talk</h3>
-          <p className="text-lg text-white-600 mt-3">
-            Whether you’re looking for new employees, collaboration, or interns to make your ideas come to the
-            life, I’m here to help.
-          </p>
+                <Reveal delay={100}>
+                    <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-6">
+                        <label className="space-y-2">
+                            <span className="field-label">Name</span>
+                            <input
+                                type="text"
+                                name="name"
+                                value={form.name}
+                                onChange={handleChange}
+                                required
+                                className="field-input"
+                                placeholder="Your name"
+                            />
+                        </label>
 
-          <form ref={formRef} onSubmit={handleSubmit} className="mt-12 flex flex-col space-y-7">
-            <label className="space-y-3">
-              <span className="field-label">Full Name</span>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                required
-                className="field-input"
-                placeholder="ex., Mehmet Murt"
-              />
-            </label>
+                        <label className="space-y-2">
+                            <span className="field-label">Email</span>
+                            <input
+                                type="email"
+                                name="email"
+                                value={form.email}
+                                onChange={handleChange}
+                                required
+                                className="field-input"
+                                placeholder="you@company.com"
+                            />
+                        </label>
 
-            <label className="space-y-3">
-              <span className="field-label">Email address</span>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                required
-                className="field-input"
-                placeholder="ex., mehmetmurt@gmail.com"
-              />
-            </label>
+                        <label className="space-y-2">
+                            <span className="field-label">Message</span>
+                            <textarea
+                                name="message"
+                                value={form.message}
+                                onChange={handleChange}
+                                required
+                                rows={5}
+                                className="field-input"
+                                placeholder="Tell me about the role or project…"
+                            />
+                        </label>
 
-            <label className="space-y-3">
-              <span className="field-label">Your message</span>
-              <textarea
-                name="message"
-                value={form.message}
-                onChange={handleChange}
-                required
-                rows={5}
-                className="field-input"
-                placeholder="I wanna give you a job..."
-              />
-            </label>
-
-            <button className="field-btn" type="submit" disabled={loading}>
-              {loading ? 'Sending...' : 'Send Message'}
-
-              <img src="/assets/arrow-up.png" alt="arrow-up" className="field-btn_arrow" />
-            </button>
-          </form>
-        </div>
-      </div>
-    </section>
-  );
+                        <button className="btn-primary self-start" type="submit" disabled={loading}>
+                            {loading ? 'Sending…' : 'Send message →'}
+                        </button>
+                    </form>
+                </Reveal>
+            </div>
+        </section>
+    );
 };
 
 export default Contact;

@@ -1,50 +1,66 @@
-import React, { useState } from 'react';
-import { navLinks } from '../constants/index.js';
+import { useState } from 'react';
+import { navLinks, CV_PATH } from '../constants/index.js';
 
-const NavItems = ({ onLinkClick }) => {
-    return (
-        <ul className="nav-ul">
-            {navLinks.map(({ id, href, name }) => (
-                <li key={id} className="nav-li">
-                    <a href={href} className="nav-li_a" onClick={onLinkClick}>
-                        {name}
-                    </a>
-                </li>
-            ))}
-        </ul>
-    );
-};
+const NavItems = ({ onLinkClick }) => (
+    <ul className="flex max-sm:flex-col items-center gap-1 sm:gap-7">
+        {navLinks.map(({ id, href, name }) => (
+            <li key={id} className="max-sm:w-full">
+                <a
+                    href={href}
+                    onClick={onLinkClick}
+                    className="block font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-paper transition-colors py-2 max-sm:px-2 max-sm:text-center"
+                >
+                    {name}
+                </a>
+            </li>
+        ))}
+        <li className="max-sm:w-full max-sm:mt-2">
+            <a
+                href={CV_PATH}
+                download
+                className="block font-mono text-xs uppercase tracking-[0.2em] text-ink bg-buff hover:bg-paper transition-colors px-4 py-2 text-center"
+            >
+                CV — PDF
+            </a>
+        </li>
+    </ul>
+);
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
-    const toggleMenu = () => setIsOpen((prevIsOpen) => !prevIsOpen);
-    const closeMenu = () => setIsOpen(false);
-
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-black/90">
-            <div className="max-w-7xl mx-auto">
-                <div className="flex justify-between items-center py-5 mx-auto c-space">
-                    <a href="/" className="text-neutral-400 font-bold text-xl hover:text-white transition-color">
-                        Osman Şahin Güler
-                    </a>
+        <header className="fixed top-0 left-0 right-0 z-50 bg-ink/85 backdrop-blur-sm border-b border-line">
+            <div className="container-site flex justify-between items-center py-4">
+                <a href="#top" className="font-display font-semibold uppercase text-lg tracking-wide text-paper">
+                    Osman Şahin Güler
+                </a>
 
-                    <button onClick={toggleMenu} className="text-neutral-400 hover:text-white focus:outline-none sm:hidden flex" aria-label="Toggle menu">
-                        <img src={isOpen ? '/assets/close.svg' : '/assets/menu.svg'} alt="toggle" className="w-6 h-6" />
-                    </button>
+                <button
+                    onClick={() => setIsOpen((v) => !v)}
+                    className="sm:hidden font-mono text-xs uppercase tracking-widest text-muted hover:text-paper"
+                    aria-label="Toggle menu"
+                    aria-expanded={isOpen}
+                >
+                    {isOpen ? 'Close' : 'Menu'}
+                </button>
 
-                    <nav className="hidden sm:flex">
-                        <NavItems />
-                    </nav>
-                </div>
+                <nav className="hidden sm:block">
+                    <NavItems />
+                </nav>
             </div>
 
-            <div className={`nav-sidebar ${isOpen ? 'max-h-screen' : 'max-h-0'}`}>
-                <nav className="p-5">
-                    <NavItems onLinkClick={closeMenu} />
+            <div
+                className={`sm:hidden overflow-hidden transition-all duration-300 border-t border-line bg-ink ${
+                    isOpen ? 'max-h-96' : 'max-h-0 border-t-0'
+                }`}
+            >
+                <nav className="container-site py-4">
+                    <NavItems onLinkClick={() => setIsOpen(false)} />
                 </nav>
             </div>
         </header>
     );
 };
+
 export default Navbar;

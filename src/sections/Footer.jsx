@@ -1,23 +1,26 @@
-const Footer = () => {
-    return (
-        <footer className="c-space pt-7 pb-3 border-t border-black-300 flex justify-between items-center flex-wrap gap-5">
-          
+import { socials } from '../constants/index.js';
 
-            <div className="flex gap-3">
-                <a href="https://github.com/HawkOsm" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <img src="/assets/github.svg" alt="github" className="w-1/2 h-1/2" />
-                </a>
-                <a href="https://x.com/HawkOsm" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <img src="/assets/twitter.svg" alt="twitter" className="w-1/2 h-1/2" />
-                </a>
-                <a href="https://www.instagram.com/hawkosm" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <img src="/assets/instagram.svg" alt="instagram" className="w-1/2 h-1/2" />
-                </a>
+const Footer = () => (
+    <footer className="hairline-t">
+        <div className="container-site py-8 flex flex-wrap justify-between items-center gap-4">
+            <p className="font-mono text-xs text-muted">
+                © 2026 Osman Şahin Güler · 38.42°N 27.14°E
+            </p>
+            <div className="flex gap-6">
+                {socials.map(({ name, href }) => (
+                    <a
+                        key={name}
+                        href={href}
+                        target={href.startsWith('http') ? '_blank' : undefined}
+                        rel="noopener noreferrer"
+                        className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-paper transition-colors"
+                    >
+                        {name}
+                    </a>
+                ))}
             </div>
-
-            <p className="text-white-500">© 2025 Osman Şahin Güler.</p>
-        </footer>
-    );
-};
+        </div>
+    </footer>
+);
 
 export default Footer;
