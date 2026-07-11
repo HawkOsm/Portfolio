@@ -1,0 +1,45 @@
+name: Monthly content refresh
+
+on:
+  schedule:
+    - cron: '0 6 1 * *' # 1st of the month, 09:00 Istanbul
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  pull-requests: write
+  models: read
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Draft content updates with GitHub Models
+        id: draft
+        run: node scripts/content-refresh.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Verify the site still builds
+        if: steps.draft.outputs.changed == 'true'
+        run: npm ci && npm run build
+
+      - name: Open pull request
+        if: steps.draft.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: auto/content-refresh
+          commit-message: 'content refresh: automated monthly text update'
+          title: 'Content refresh (automated)'
+          body: |
+            Monthly automated pass over `src/constants/index.js`, based on recent
+            GitHub activity. Text-only, minimal diff, build verified.
+
+            Review the wording before merging — close this PR to reject.
+          delete-branch: true
