@@ -8,6 +8,14 @@ import { socials, CV_PATH } from '../constants/index.js';
 
 const EMAIL = 'osmansahinguler@gmail.com';
 
+// EmailJS client-side credentials. These are public by design (they ship in the
+// JS bundle either way) — the account is protected by EmailJS's own rate limits
+// and allowed-origins settings, never by hiding these values. Env vars still
+// take precedence so they can be overridden per-deployment.
+const EMAILJS_SERVICE_ID = import.meta.env.VITE_APP_EMAILJS_SERVICE_ID || 'service_o029aq5';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID || 'template_0yhwu5g';
+const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY || 'WwERb2CbFyThOom_p';
+
 const Contact = () => {
     const formRef = useRef();
     const { alert, showAlert, hideAlert } = useAlert();
@@ -32,8 +40,8 @@ const Contact = () => {
 
         emailjs
             .send(
-                import.meta.env.VITE_APP_EMAILJS_SERVICE_ID,
-                import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID,
+                EMAILJS_SERVICE_ID,
+                EMAILJS_TEMPLATE_ID,
                 {
                     from_name: form.name,
                     to_name: 'Osman Şahin Güler',
@@ -41,7 +49,7 @@ const Contact = () => {
                     to_email: EMAIL,
                     message: form.message,
                 },
-                import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
+                EMAILJS_PUBLIC_KEY
             )
             .then(
                 () => {
