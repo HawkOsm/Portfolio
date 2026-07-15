@@ -1,6 +1,20 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #0B0C0E;
+  --color-panel: #131418;
+  --color-line: #26282E;
+  --color-paper: #E9E7E2;
+  --color-muted: #8E9198;
+  --color-buff: #D9CBA3;
+  --color-signal: #E4572E;
+
+  --font-display: "Saira Condensed", sans-serif;
+  --font-sans: "Instrument Sans", sans-serif;
+  --font-mono: "Spline Sans Mono", monospace;
+
+  --max-width-site: 1120px;
+}
 
 html {
   scroll-behavior: smooth;
