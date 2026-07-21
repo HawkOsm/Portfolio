@@ -32,15 +32,6 @@ export const projects = [
         tag: 'github.com/HawkOsm',
         link: 'https://github.com/HawkOsm/monster-notebook-linux',
     },
-    {
-        id: 'speed-swap',
-        code: '03',
-        title: 'Speed Swap — an original arcade game',
-        body: 'A one-tap arcade game built on a single mechanic: every tap swaps your velocity with the nearest ball. Custom physics simulation and difficulty design from scratch in Flutter, no game engine. In development, Android first.',
-        facts: ['Flutter · custom physics', 'in development'],
-        tag: 'in progress',
-        link: null,
-    },
 ];
 
 export const missionLog = [
