@@ -41,8 +41,7 @@ const ProjectRow = ({ project, index }) => {
 const Work = () => (
     <section id="work" className="container-site pt-24 pb-10">
         <Reveal>
-            <p className="eyebrow mb-3">Selected work</p>
-            <h2 className="section-head mb-10">Built, flown, shipped</h2>
+            <p className="eyebrow mb-3">Projects</p>
         </Reveal>
 
         <div>

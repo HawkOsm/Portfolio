@@ -1,5 +1,5 @@
 import Compass from '../components/Compass.jsx';
-import { heroFacts, CV_PATH } from '../constants/index.js';
+import { CV_PATH } from '../constants/index.js';
 
 const Hero = () => {
     return (
@@ -13,7 +13,7 @@ const Hero = () => {
                 <p className="font-mono text-xs tracking-[0.25em] uppercase mb-6 flex items-center gap-3 flex-wrap">
                     <span className="inline-block w-2 h-2 bg-signal" aria-hidden="true" />
                     <span className="text-paper">Osman Şahin Güler</span>
-                    <span className="text-muted">· Open to remote work &amp; internships</span>
+                    <span className="text-muted">· Open to work &amp; internships</span>
                 </p>
 
                 <h1 className="font-display font-bold uppercase leading-[0.95] text-paper"
@@ -30,25 +30,8 @@ const Hero = () => {
                 </p>
 
                 <div className="mt-10 flex flex-wrap gap-4">
-                    <a href="#work" className="btn-primary">Selected work ↓</a>
+                    <a href="#contact" className="btn-primary">Contact me ↓</a>
                     <a href={CV_PATH} download className="btn-ghost">Download CV</a>
-                </div>
-            </div>
-
-            {/* instrument strip */}
-            <div className="relative z-10 hairline-t">
-                <div className="container-site grid grid-cols-2 lg:grid-cols-4">
-                    {heroFacts.map(({ label, value }, i) => (
-                        <div
-                            key={label}
-                            className={`py-4 pr-6 font-mono text-xs text-muted flex gap-3 ${
-                                i > 0 ? 'lg:border-l lg:border-line lg:pl-6' : ''
-                            }`}
-                        >
-                            <span className="text-signal">{label}</span>
-                            <span className="text-paper/80">{value}</span>
-                        </div>
-                    ))}
                 </div>
             </div>
         </section>
