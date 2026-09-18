@@ -1,16 +1,9 @@
 export const navLinks = [
-    { id: 1, name: 'Work', href: '#work' },
-    { id: 2, name: 'Experience', href: '#log' },
-    { id: 3, name: 'Skills', href: '#skills' },
-    { id: 4, name: 'Off screen', href: '#offscreen' },
+    { id: 1, name: 'Education', href: '#education' },
+    { id: 2, name: 'Projects', href: '#work' },
+    { id: 3, name: 'Experience', href: '#log' },
+    { id: 4, name: 'Skills', href: '#skills' },
     { id: 5, name: 'Contact', href: '#contact' },
-];
-
-export const heroFacts = [
-    { label: 'FIX', value: '38.42°N 27.14°E — Izmir, TR' },
-    { label: 'GPA', value: '3.61 / 4.00' },
-    { label: 'SIM', value: '50+ hrs Gazebo · SITL' },
-    { label: 'ETA', value: 'B.Sc. 2027' },
 ];
 
 export const projects = [
@@ -32,6 +25,21 @@ export const projects = [
         tag: 'github.com/HawkOsm',
         link: 'https://github.com/HawkOsm/monster-notebook-linux',
     },
+];
+
+export const education = {
+    period: 'SEP 2024 — JUN 2027',
+    org: 'Yaşar University, Izmir',
+    role: 'B.Sc. Software Engineering — GPA 3.45 / 4.00',
+    notes: 'Currently a 3rd-year undergraduate.',
+};
+
+export const certificates = [
+    { id: 'ai4purpose', title: 'AI4Purpose Hackathon', org: 'Interreg NEXT MED · İzmir Katip Çelebi University', date: 'JAN — FEB 2026', image: '/assets/certificates/ai4purpose-hackathon.png' },
+    { id: 'yasar-efes', title: 'EFES-2026 Defense Project Contest', org: 'Yaşar University — Rectorate letter', date: 'JUN 2026', image: '/assets/certificates/yasar-university-efes.jpg' },
+    { id: 'thm-ethical-hacking', title: 'Ethical Hacking Foundations', org: 'TryHackMe', date: 'JUL 2025', image: '/assets/certificates/thm-ethical-hacking.png' },
+    { id: 'matlab-onramp', title: 'MATLAB Onramp', org: 'MathWorks', date: '2025', image: '/assets/certificates/matlab-onramp.png' },
+    { id: 'matlab-vectors', title: 'Calculations with Vectors and Matrices', org: 'MathWorks', date: '2025', image: '/assets/certificates/matlab-vectors.png' },
 ];
 
 export const missionLog = [
@@ -56,15 +64,6 @@ export const missionLog = [
             'Computer-vision prototypes for industrial object detection with OpenCV and YOLOv5.',
             'Model training and hyperparameter optimization on custom-labeled datasets.',
             'Performance profiling on real-time data processing pipelines.',
-        ],
-    },
-    {
-        id: 3,
-        period: 'SEP 2024 — JUN 2027',
-        org: 'Yaşar University, Izmir',
-        role: 'B.Sc. Software Engineering — GPA 3.61 / 4.00',
-        notes: [
-            'Data structures & algorithms, object-oriented design — and every side project I can fit around them.',
         ],
     },
 ];
