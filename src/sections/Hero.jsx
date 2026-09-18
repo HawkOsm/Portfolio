@@ -18,15 +18,14 @@ const Hero = () => {
 
                 <h1 className="font-display font-bold uppercase leading-[0.95] text-paper"
                     style={{ fontSize: 'clamp(3.25rem, 9vw, 7rem)' }}>
-                    I teach machines
+                    Software engineer,
                     <br />
-                    <span className="text-buff">to see.</span>
+                    <span className="text-buff">focused on ML.</span>
                 </h1>
 
                 <p className="mt-8 max-w-xl text-lg text-muted leading-relaxed">
-                    Software engineering student in Izmir. I build autonomous kamikaze missions
-                    for fixed-wing competition UAVs — vision-guided dives, MAVLink guidance, and
-                    the edge hardware they run on. I learn by shipping real systems, not toy demos.
+                    3rd-year software engineering student in Izmir. I like building real systems
+                    end to end, and I'm currently moving toward machine learning and MLOps.
                 </p>
 
                 <div className="mt-10 flex flex-wrap gap-4">
