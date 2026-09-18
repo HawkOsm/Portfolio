@@ -6,23 +6,55 @@ export const navLinks = [
     { id: 5, name: 'Contact', href: '#contact' },
 ];
 
+const devicon = (name) => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${name}/${name}-original.svg`;
+const simpleIcon = (name) => `https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/${name}.svg`;
+
 export const projects = [
     {
         id: 'kamikaze',
-        code: '01',
-        title: 'Autonomous kamikaze dive system',
-        body: 'Mission software for a fixed-wing competition UAV (Teknofest Savaşan İHA, Anafarta team). The aircraft transits to a server-issued GPS target at 80 m altitude, pitches into an autonomous 45° dive at 80 m horizontal stand-off, and scans the ground QR marker mid-dive — dual decoders with adaptive preprocessing, readable from 40 m out. If nothing reads by 30 m it firewalls the throttle, goes around, and re-attacks from a new bearing. Dive limits come from the wing’s tested G-force envelope; every change flies in Gazebo/SITL before it flies for real.',
-        facts: ['45° dive · go-around at 30 m', 'ArduPilot · MAVLink · PID guidance', '50+ hrs SITL · flight-tested'],
-        tag: 'UAV team project',
-        link: null,
+        title: 'Autonomous Kamikaze UAV',
+        body: 'Flight software for a competition drone that autonomously dives on a ground target. A dual-model YOLO11 pipeline on the onboard Jetson locks onto the target, then a QR reader confirms the hit mid-dive.',
+        tag: 'Autonomous Systems',
+        image: '/assets/projects/uav-cover.jpg',
+        stack: [
+            { name: 'ArduPilot', icon: null },
+            { name: 'Gazebo', icon: devicon('gazebo') },
+            { name: 'NVIDIA Jetson', icon: simpleIcon('nvidia'), invert: true },
+            { name: 'YOLO11', icon: null },
+            { name: 'Python', icon: devicon('python') },
+            { name: 'OpenCV', icon: devicon('opencv') },
+            { name: 'Raspberry Pi', icon: devicon('raspberrypi') },
+            { name: 'Docker', icon: devicon('docker') },
+            { name: 'Linux', icon: devicon('linux') },
+        ],
+        link: 'https://github.com/HawkOsm/Savasan-IHA-Kamikaze',
+    },
+    {
+        id: 'rsvp-reader',
+        title: 'RSVP Reader',
+        body: 'A speed-reading app that flashes text one word at a time at a set pace, so you can read faster without moving your eyes across the page.',
+        tag: 'Web App',
+        image: 'https://raw.githubusercontent.com/HawkOsm/rsvp-reader/main/docs/reader.png',
+        stack: [
+            { name: 'Python', icon: devicon('python') },
+            { name: 'Qt', icon: devicon('qt') },
+            { name: 'JavaScript', icon: devicon('javascript') },
+            { name: 'SQLite', icon: devicon('sqlite') },
+            { name: 'Android', icon: devicon('android') },
+        ],
+        link: 'https://github.com/HawkOsm/rsvp-reader',
     },
     {
         id: 'clevo-linux',
-        code: '02',
-        title: 'Monster Notebook Linux fixes',
-        body: 'Public field guides for Clevo-based Monster laptops on Linux: patching tuxedo-drivers DKMS modules that reject the vendor’s DMI strings, untangling epoch-pinned NVIDIA packages after kernel upgrades, re-enabling hardware-locked touchpads. Written because I hit every one of these problems myself.',
-        facts: ['DKMS · systemd · apt pinning', 'Ubuntu 24.04 · kernel 6.17+'],
-        tag: 'github.com/HawkOsm',
+        title: 'Monster Notebook Linux Fixes',
+        body: 'Field guides for getting Clevo-based Monster laptops running properly on Linux — drivers, graphics, and touchpad fixes I needed myself.',
+        tag: 'Open Source',
+        image: '/assets/projects/linux-cover.jpg',
+        stack: [
+            { name: 'Linux', icon: devicon('linux') },
+            { name: 'Bash', icon: devicon('bash') },
+            { name: 'Git', icon: devicon('git') },
+        ],
         link: 'https://github.com/HawkOsm/monster-notebook-linux',
     },
 ];
