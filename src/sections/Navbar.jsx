@@ -1,26 +1,36 @@
 import { useState } from 'react';
-import { navLinks, CV_PATH } from '../constants/index.js';
+import { Link, useRouter } from '../router.jsx';
+import { CV_PATH } from '../constants/index.js';
 
-const NavItems = ({ onLinkClick }) => (
-    <ul className="flex max-sm:flex-col items-center gap-1 sm:gap-7">
-        {navLinks.map(({ id, href, name }) => (
-            <li key={id} className="max-sm:w-full">
-                <a
+const navLinks = [
+    { name: 'Home', href: '/' },
+    { name: 'About', href: '/about' },
+    { name: 'Projects', href: '/projects' },
+    { name: 'Contact', href: '/contact' },
+];
+
+const NavItems = ({ pathname, onLinkClick }) => (
+    <ul className="flex max-sm:flex-col items-center gap-1 sm:gap-6">
+        {navLinks.map(({ href, name }) => (
+            <li key={href} className="max-sm:w-full">
+                <Link
                     href={href}
                     onClick={onLinkClick}
-                    className="block font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-paper transition-colors py-2 max-sm:px-2 max-sm:text-center"
+                    className={`block text-[13px] transition-colors py-2 max-sm:px-2 max-sm:text-center ${
+                        pathname === href ? 'text-paper' : 'text-muted hover:text-paper'
+                    }`}
                 >
                     {name}
-                </a>
+                </Link>
             </li>
         ))}
         <li className="max-sm:w-full max-sm:mt-2">
             <a
                 href={CV_PATH}
                 download
-                className="block font-mono text-xs uppercase tracking-[0.2em] text-ink bg-buff hover:bg-paper transition-colors px-4 py-2 text-center"
+                className="block text-[13px] font-medium text-ink bg-accent rounded-full px-[18px] py-[9px] text-center hover:bg-accent-hover transition-colors whitespace-nowrap"
             >
-                CV — PDF
+                Request CV
             </a>
         </li>
     </ul>
@@ -28,17 +38,21 @@ const NavItems = ({ onLinkClick }) => (
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { location } = useRouter();
 
     return (
-        <header className="fixed top-0 left-0 right-0 z-50 bg-ink/85 backdrop-blur-sm border-b border-line">
-            <div className="container-site flex justify-between items-center py-4">
-                <a href="#top" className="font-display font-semibold uppercase text-lg tracking-wide text-paper">
+        <header
+            data-site-header
+            className="sticky top-0 z-50 bg-ink/82 backdrop-blur-[12px] border-b border-line"
+        >
+            <div className="container-site flex justify-between items-center gap-6 py-[15px]">
+                <Link href="/" className="font-display font-semibold text-[15px] tracking-tight whitespace-nowrap shrink-0">
                     Osman Şahin Güler
-                </a>
+                </Link>
 
                 <button
                     onClick={() => setIsOpen((v) => !v)}
-                    className="sm:hidden font-mono text-xs uppercase tracking-widest text-muted hover:text-paper"
+                    className="sm:hidden text-[13px] font-medium text-muted hover:text-paper"
                     aria-label="Toggle menu"
                     aria-expanded={isOpen}
                 >
@@ -46,7 +60,7 @@ const Navbar = () => {
                 </button>
 
                 <nav className="hidden sm:block">
-                    <NavItems />
+                    <NavItems pathname={location.pathname} />
                 </nav>
             </div>
 
@@ -56,7 +70,7 @@ const Navbar = () => {
                 }`}
             >
                 <nav className="container-site py-4">
-                    <NavItems onLinkClick={() => setIsOpen(false)} />
+                    <NavItems pathname={location.pathname} onLinkClick={() => setIsOpen(false)} />
                 </nav>
             </div>
         </header>

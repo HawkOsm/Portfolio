@@ -3,11 +3,19 @@ import userEvent from '@testing-library/user-event';
 import emailjs from '@emailjs/browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-import Contact from './Contact.jsx';
+import Contact from '../pages/Contact.jsx';
+import { RouterProvider } from '../router.jsx';
 
 vi.mock('@emailjs/browser', () => ({
     default: { send: vi.fn() },
 }));
+
+const renderContact = () =>
+    render(
+        <RouterProvider>
+            <Contact />
+        </RouterProvider>
+    );
 
 describe('Contact form (EmailJS API call)', () => {
     beforeEach(() => {
@@ -17,7 +25,7 @@ describe('Contact form (EmailJS API call)', () => {
     const fillAndSubmit = async (user) => {
         await user.type(screen.getByPlaceholderText('Your name'), 'Ada Lovelace');
         await user.type(screen.getByPlaceholderText('you@company.com'), 'ada@example.com');
-        await user.type(screen.getByPlaceholderText('Tell me about the role or project…'), 'Hello there!');
+        await user.type(screen.getByPlaceholderText('What are you working on?'), 'Hello there!');
         await user.click(screen.getByRole('button', { name: /send message/i }));
     };
 
@@ -25,7 +33,7 @@ describe('Contact form (EmailJS API call)', () => {
         emailjs.send.mockResolvedValueOnce({ status: 200, text: 'OK' });
         const user = userEvent.setup();
 
-        render(<Contact />);
+        renderContact();
         await fillAndSubmit(user);
 
         expect(emailjs.send).toHaveBeenCalledTimes(1);
@@ -46,7 +54,7 @@ describe('Contact form (EmailJS API call)', () => {
         emailjs.send.mockResolvedValueOnce({ status: 200, text: 'OK' });
         const user = userEvent.setup();
 
-        render(<Contact />);
+        renderContact();
         await fillAndSubmit(user);
 
         expect(await screen.findByRole('alert')).toHaveTextContent(/message sent/i);
@@ -57,7 +65,7 @@ describe('Contact form (EmailJS API call)', () => {
         emailjs.send.mockRejectedValueOnce(new Error('network error'));
         const user = userEvent.setup();
 
-        render(<Contact />);
+        renderContact();
         await fillAndSubmit(user);
 
         expect(await screen.findByRole('alert')).toHaveTextContent(/sending failed/i);
@@ -71,7 +79,7 @@ describe('Contact form (EmailJS API call)', () => {
         );
         const user = userEvent.setup();
 
-        render(<Contact />);
+        renderContact();
         await fillAndSubmit(user);
 
         const button = screen.getByRole('button', { name: /sending/i });
