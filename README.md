@@ -1,7 +1,7 @@
 # osmansahinguler.com
 
-Personal portfolio of **Osman Şahin Güler** — software engineering student working on
-computer vision and autonomous UAVs.
+Personal portfolio of **Osman Şahin Güler** — software engineer working on computer
+vision and machine learning.
 
 **Live:** [osmansahinguler.com](https://osmansahinguler.com)
 
@@ -9,43 +9,53 @@ computer vision and autonomous UAVs.
 
 ## Design
 
-A wind-and-compass identity, built from scratch — no template.
+A dark, detection-HUD identity, built from scratch — no template.
 
 | Token | Value | Role |
 |---|---|---|
-| Ink | `#0B0C0E` | Background |
-| Panel | `#131418` | Raised surfaces |
-| Paper | `#E9E7E2` | Body text |
-| Buff | `#D9CBA3` | Display accents |
-| Signal | `#E4572E` | Orange accent — regatta buoys, annotation tools |
+| Ink | `#0C0D0E` | Background |
+| Panel | `#141517` | Raised surfaces (contact card) |
+| Line / Border | `#1D1F22` / `#2A2B2F` | Hairlines / component borders |
+| Paper | `#ECEEF0` | Headings |
+| Body / Muted / Faint | `#C3C6CA` / `#9A9EA3` / `#6B6F74` | Body copy → secondary → labels |
+| Accent / Accent hover | `#5EE6C4` / `#7AF0D3` | Mint — CTAs, links, highlights |
+| Warn | `#E4572E` | "TODO — fill in" callouts on the Projects page |
 
-- **Type:** [Saira Condensed](https://fonts.google.com/specimen/Saira+Condensed) (display) ·
-  [Instrument Sans](https://fonts.google.com/specimen/Instrument+Sans) (body) ·
-  [Spline Sans Mono](https://fonts.google.com/specimen/Spline+Sans+Mono) (labels & data)
-- **Signature element:** a hairline SVG compass rose in the hero. The needle swings and settles
-  on load, then tracks the cursor — a per-frame lerp on a GPU-composited layer
-  (`src/components/Compass.jsx`), disabled for touch devices and `prefers-reduced-motion`.
-- **Motion:** scroll-reveals via a small `IntersectionObserver` hook; animated wind streaks in
-  the "Off screen" section. Everything respects reduced-motion.
+- **Type:** [Space Grotesk](https://fonts.google.com/specimen/Space+Grotesk) (display) ·
+  [Inter](https://fonts.google.com/specimen/Inter) (body) ·
+  [Spline Sans Mono](https://fonts.google.com/specimen/Spline+Sans+Mono) (hero HUD labels)
+- **Pages:** four routes — Home, About, Projects, Contact — handled by a small custom
+  history-API router (`src/router.jsx`), no routing library. Project rows on Home and About
+  deep-link into `/projects#<id>`.
+- **Hero:** a canvas "digital rain" backdrop (`src/components/MatrixRain.jsx`, pauses under
+  reduced-motion) behind a HUD status line and a live stats strip. A wheel tick past the hero
+  glides straight to the next section (`src/hooks/useHeroSnap.js`) — trackpad/touch scrolling
+  elsewhere is untouched, and reduced-motion disables it entirely.
+- **Motion:** scroll-reveals via a small `IntersectionObserver` hook (`src/components/Reveal.jsx`).
+  Everything respects `prefers-reduced-motion`.
 
 ## Stack
 
-- [React 18](https://react.dev) + [Vite](https://vite.dev)
-- [Tailwind CSS](https://tailwindcss.com) with the design tokens above (`tailwind.config.js`)
+- [React 19](https://react.dev) + [Vite](https://vite.dev)
+- [Tailwind CSS v4](https://tailwindcss.com) with the design tokens above (`src/index.css`)
 - [EmailJS](https://www.emailjs.com) for the contact form — no backend
-- Zero heavy runtime dependencies: no 3D, no animation libraries. **~54 KB gzipped.**
+- Zero heavy runtime dependencies: no router library, no animation libraries, no canvas library.
 
 ## Structure
 
 ```
 src/
-├── components/     Compass (hero signature), Reveal (scroll-in), Alert (form feedback)
-├── sections/       Navbar · Hero · Work · Experience · Skills · Offscreen · Contact · Footer
+├── pages/          Home, About, Projects, Contact — one file per route
+├── sections/       AnnouncementBar, Navbar, Footer — shared across every page
+├── components/     MatrixRain (hero canvas), Reveal (scroll-in), Alert (form feedback)
 ├── constants/      All site content (projects, experience, skills, links) in one file
-└── hooks/          useInView, useAlert
+├── hooks/          useInView, useAlert, useHeroSnap
+└── router.jsx      Minimal history-API router (Link, useRouter, RouterProvider)
 ```
 
 All copy lives in `src/constants/index.js` — edit content there without touching components.
+Each project's Projects-page detail includes a dashed "TODO — fill in" box for the numbers
+and media that only the author has (results, metrics, screenshots).
 
 ## Development
 

@@ -1,24 +1,31 @@
+import { Link } from '../router.jsx';
 import { socials } from '../constants/index.js';
 
-const Footer = () => (
-    <footer className="hairline-t">
-        <div className="container-site py-8 flex flex-wrap justify-between items-center gap-4">
-            <p className="font-mono text-xs text-muted">
-                © 2026 Osman Şahin Güler · 38.42°N 27.14°E
-            </p>
-            <div className="flex gap-6">
-                {socials.map(({ name, href }) => (
-                    <a
-                        key={name}
-                        href={href}
-                        target={href.startsWith('http') ? '_blank' : undefined}
-                        rel="noopener noreferrer"
-                        className="font-mono text-xs uppercase tracking-[0.2em] text-muted hover:text-paper transition-colors"
-                    >
-                        {name}
-                    </a>
-                ))}
-            </div>
+// Home shows the social row; every other page shows one contextual link instead
+// (see each page's own <Footer link={{...}} />).
+const Footer = ({ link }) => (
+    <footer className="border-t border-line">
+        <div className="container-site py-[22px] flex flex-wrap justify-between items-center gap-5 text-xs text-faint">
+            <span>© 2026 Osman Şahin Güler</span>
+            {link ? (
+                <Link href={link.href} className="text-[13px] text-muted hover:text-accent transition-colors">
+                    {link.label}
+                </Link>
+            ) : (
+                <div className="flex gap-[22px] items-center flex-wrap">
+                    {socials.map(({ name, href }) => (
+                        <a
+                            key={name}
+                            href={href}
+                            target={href.startsWith('http') ? '_blank' : undefined}
+                            rel="noopener noreferrer"
+                            className="text-[13px] text-muted hover:text-accent transition-colors"
+                        >
+                            {name}
+                        </a>
+                    ))}
+                </div>
+            )}
         </div>
     </footer>
 );
