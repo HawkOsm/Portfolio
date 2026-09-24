@@ -8,7 +8,8 @@ export const hud = [
 // plus its brand color). Any project `stack` or `logos` entry whose name matches a key here gets
 // rendered with its logo everywhere via <TechBadge>; names with no entry just render as plain text.
 // Colors are each brand's official mark per Simple Icons, except Express/Anthropic/SQLite, whose
-// official hex is near-black or too dark to read on this site's dark background — lightened for legibility.
+// official hex is near-black or too dark to read on this site's dark background — lightened for legibility —
+// and Rust, whose official mark is black: it uses the Rust orange GitHub shows for the language.
 export const techIcons = {
     Python: { slug: 'python', color: '#3776AB' },
     OpenCV: { slug: 'opencv', color: '#5C3EE8' },
@@ -26,6 +27,7 @@ export const techIcons = {
     'PostgreSQL (Supabase)': { slug: 'postgresql', color: '#4169E1' },
     React: { slug: 'react', color: '#61DAFB' },
     'Anthropic Claude API': { slug: 'anthropic', color: '#D97757' },
+    Rust: { slug: 'rust', color: '#DEA584' },
 };
 
 export const projects = [
@@ -114,6 +116,54 @@ export const projects = [
         todo: [],
         stack: ['Node.js', 'Express', 'PostgreSQL (Supabase)', 'Sequelize', 'React', 'GitHub REST API', 'JIRA API', 'Ollama', 'Anthropic Claude API'],
         logos: ['Node.js', 'Express', 'PostgreSQL (Supabase)', 'React', 'Anthropic Claude API'],
+    },
+    {
+        id: 'blackbox',
+        num: '05',
+        year: '2026',
+        title: 'Blackbox — a flight recorder for Linux',
+        tag: 'Systems · Linux',
+        role: 'Solo — design and build',
+        link: 'https://github.com/HawkOsm/BlackBox',
+        short: 'An always-on recorder that keeps the evidence of what broke on my machine, and when.',
+        body: 'A small Rust service that runs all the time on my Arch Linux desktop and records what I need after something goes wrong: crashes, error logs, failed logins, package upgrades, freezes and system load. A native GTK app shows any of those moments together with everything else that was happening at the time. It costs 0.14% of one CPU core and about 6 MB of memory, so I never notice it running.',
+        sections: [
+            {
+                title: 'The problem',
+                text: 'When a desktop freezes or a program crashes, the evidence is spread across the systemd journal, the audit log, coredumps and the package manager\'s log. By the time I go looking, some of it has rotated away, and nothing lines the rest up in time. "What happened at 14:02, and what else was going on?" took an hour of grep. I wanted it to take one click.',
+            },
+            {
+                title: 'How it works',
+                items: [
+                    ['Six sources, one writer.', 'Process exits from the kernel, system load from /proc and nvidia-smi, journald, auditd, pacman\'s log and the previous boot\'s last journal entry. Each runs on its own thread and writes through a single SQLite connection, one transaction per event.'],
+                    ['A timeline index.', 'Every notable event gets a row in one time-indexed table that points at its full record, so "everything within ±2 minutes" across all six sources is a range scan on one index, not a join over six tables.'],
+                    ['A read-only viewer.', 'A GTK4/libadwaita app that runs only while its window is open. It shows any event with a CPU/memory/GPU chart around it, the crash\'s stack trace, the package upgrades from the week before, and every other event in that window.'],
+                ],
+            },
+            {
+                title: 'Engineering decisions',
+                items: [
+                    ['Filter in the kernel, not in Rust.', 'Recording every process exit would mean about 100 events a second of noise. A classic BPF program on the netlink socket drops forks, thread exits and clean exits before the kernel even queues them. A unit test runs the filter through a small BPF interpreter for all 65,536 possible exit statuses and checks it agrees with the Rust rule. Together with 100 ms batching, wakeups fell from 98–136 a second to 8.5.'],
+                    ['Durable over fast.', 'SQLite runs with synchronous=FULL. With the default, the last ~30 seconds sit in the page cache and die with a frozen machine, and those are exactly the seconds a flight recorder exists for. At one write every ~10 seconds, the extra fsync costs nothing noticeable.'],
+                    ['Record a freeze after it happens.', 'Nothing can write while the machine is frozen. So at every boot Blackbox reads the previous boot\'s last journal entry: a clean shutdown always ends with "Journal stopped", and anything else is stored as an unclean end at the moment the log stopped. 7 of the 73 earlier boots on my machine ended that way.'],
+                    ['A size cap that never blocks recording.', 'The database is a 7.5 GB ring buffer. Deleting the oldest data in one statement stalled writers for 1.2 seconds, so the trim deletes in chunks of 1,000 rows and releases the lock in between: the worst write during a trim fell to 7.4 ms. The test for it also caught a real bug: one row stamped in the far future made the trim delete every real row.'],
+                    ['Names for processes that are already gone.', 'An exit event carries no name, and the process is usually gone from /proc when it arrives. The collector keeps a pid-to-name table fed by exec events, and names crashes afterwards from systemd-coredump, which also gives the executable path and stack trace.'],
+                ],
+            },
+            {
+                title: 'Measured',
+                items: [
+                    ['0.14%', 'of one CPU core for the whole service, including its journalctl and tail helpers.'],
+                    ['~6 MB', 'of private memory, and under 10 wakeups a second.'],
+                    ['~1 MB', 'of database growth a day at the current event rate.'],
+                    ['25 tests', 'covering the parsers, the exit rule, the kernel filter, crash naming, boot endings, audit-log resume, the write path and the ring-buffer trim, plus a stress test for trimming under concurrent writes.'],
+                ],
+            },
+        ],
+        image: { src: '/assets/projects/blackbox-viewer.webp', alt: 'The Blackbox viewer: a list of recorded problems on the left, and on the right the last 24 hours with error and warning counts, current CPU, memory and GPU, and a load chart.' },
+        todo: [],
+        stack: ['Rust', 'SQLite', 'Linux', 'Python', 'GTK4 · libadwaita', 'systemd', 'netlink · BPF', 'auditd'],
+        logos: ['Rust', 'SQLite', 'Linux', 'Python'],
     },
 ];
 

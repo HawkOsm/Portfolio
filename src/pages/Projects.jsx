@@ -69,22 +69,41 @@ const ProjectOverlay = ({ project, onClose }) => {
                             <span className="text-[13px] text-faint">Role: {p.role}</span>
                         </div>
 
+                        {p.image && (
+                            <a href={p.image.src} target="_blank" rel="noopener noreferrer" className="block mb-8">
+                                <img
+                                    src={p.image.src}
+                                    alt={p.image.alt}
+                                    loading="lazy"
+                                    className="w-full rounded-xl border border-line"
+                                />
+                            </a>
+                        )}
+
                         <div className="flex flex-col gap-6.5">
-                            <div>
-                                <h3 className="text-xs tracking-[0.14em] uppercase text-accent mb-3">The problem</h3>
-                                <p className="text-body leading-[1.75] text-[15px]">{p.problem}</p>
-                            </div>
-                            <div>
-                                <h3 className="text-xs tracking-[0.14em] uppercase text-accent mb-3">What I built</h3>
-                                <ul className="flex flex-col gap-2.5">
-                                    {p.built.map((b) => (
-                                        <li key={b} className="text-body leading-[1.7] text-[15px] pl-4.5 relative">
-                                            <span className="absolute left-0 top-[0.72em] w-2 h-px bg-faint" aria-hidden="true" />
-                                            {b}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                            {(p.sections ?? [
+                                { title: 'The problem', text: p.problem },
+                                { title: 'What I built', items: p.built },
+                            ]).map((section) => (
+                                <div key={section.title}>
+                                    <h3 className="text-xs tracking-[0.14em] uppercase text-accent mb-3">{section.title}</h3>
+                                    {section.text && <p className="text-body leading-[1.75] text-[15px]">{section.text}</p>}
+                                    {section.items && (
+                                        <ul className="flex flex-col gap-2.5">
+                                            {section.items.map((item) => {
+                                                const [lead, rest] = Array.isArray(item) ? item : [null, item];
+                                                return (
+                                                    <li key={rest} className="text-body leading-[1.7] text-[15px] pl-4.5 relative">
+                                                        <span className="absolute left-0 top-[0.72em] w-2 h-px bg-faint" aria-hidden="true" />
+                                                        {lead && <strong className="text-paper font-semibold">{lead} </strong>}
+                                                        {rest}
+                                                    </li>
+                                                );
+                                            })}
+                                        </ul>
+                                    )}
+                                </div>
+                            ))}
                             {p.todo.length > 0 && (
                                 <div className="border border-dashed border-[#3a3d42] rounded-xl px-5 py-4.5">
                                     <div className="text-[11px] tracking-[0.14em] uppercase text-warn mb-2">TODO — fill in</div>
