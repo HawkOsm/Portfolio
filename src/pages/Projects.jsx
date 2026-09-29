@@ -140,25 +140,6 @@ const Projects = () => {
 
     return (
         <>
-            <section className="container-site py-16 md:py-24 border-b border-line grid lg:grid-cols-[minmax(0,7fr)_minmax(0,4fr)] gap-8 lg:gap-20 items-end">
-                <Reveal>
-                    <p className="eyebrow mb-6">Projects</p>
-                    <h1
-                        className="font-display font-bold leading-[0.94] tracking-[-0.04em]"
-                        style={{ fontSize: 'clamp(2.4rem, 6.4vw, 5.25rem)' }}
-                    >
-                        Things I built,<br />and why.
-                    </h1>
-                </Reveal>
-                <Reveal>
-                    <p className="text-muted leading-[1.75] text-base max-w-[46ch]">
-                        Each one started as a problem I actually had — a drone that needed to find its own
-                        target, a reading habit that needed fixing, a laptop that wouldn&apos;t boot Linux.
-                        Tap any card for the full story.
-                    </p>
-                </Reveal>
-            </section>
-
             <section className="container-site py-14 md:py-20">
                 <div className="grid sm:grid-cols-2 gap-5 md:gap-7">
                     {projects.map((p) => (
@@ -189,22 +170,6 @@ const Projects = () => {
                         </Reveal>
                     ))}
                 </div>
-            </section>
-
-            <section className="container-site py-16 md:py-24 grid sm:grid-cols-[minmax(0,1fr)_auto] gap-9 items-center border-t border-line">
-                <Reveal>
-                    <h2
-                        className="font-display font-bold tracking-[-0.03em] leading-[1.05] max-w-[20ch]"
-                        style={{ fontSize: 'clamp(1.8rem, 4.4vw, 3.5rem)' }}
-                    >
-                        More of it lives on GitHub.
-                    </h2>
-                </Reveal>
-                <Reveal className="sm:justify-self-end">
-                    <a href="https://github.com/HawkOsm" target="_blank" rel="noopener noreferrer" className="btn-primary whitespace-nowrap">
-                        github.com/HawkOsm ↗
-                    </a>
-                </Reveal>
             </section>
 
             <Footer link={{ href: '/contact', label: 'Get in touch →' }} />
