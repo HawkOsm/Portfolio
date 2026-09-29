@@ -51,10 +51,10 @@ const Home = () => {
                             className="font-display font-bold leading-[1.06] tracking-[-0.04em] max-w-[16ch]"
                             style={{ fontSize: 'clamp(2rem, 6.5vw, 6rem)' }}
                         >
-                            I build and <span className="text-accent">explore</span> software projects.
+                            I&apos;m Osman, a <span className="text-accent">software engineer.</span>
                         </h1>
-                        <p className="mt-5 max-w-[46ch] text-base text-muted leading-[1.7]">
-                            Computer Vision — Machine Learning — DevOps.
+                        <p className="mt-5 max-w-[72ch] text-base text-muted leading-[1.7]">
+                            Full-Stack — Machine Learning.
                         </p>
                         <div className="flex flex-wrap items-center gap-4 mt-7">
                             <Link href="/contact" className="btn-primary">Hire me →</Link>

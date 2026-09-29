@@ -28,24 +28,25 @@ const About = () => (
                     className="font-display font-bold leading-[0.96] tracking-[-0.035em] mb-8"
                     style={{ fontSize: 'clamp(2rem, 3.6vw, 3.2rem)' }}
                 >
-                    Autonomous systems<br />today, <span className="text-accent">machine learning</span><br />next.
+                    Curious how things work,<br />and <span className="text-accent">why they break.</span>
                 </h1>
                 <div className="flex flex-col gap-5 max-w-[52ch]">
                     <p className="text-muted leading-[1.75] text-base">
-                        I&apos;m a 3rd-year software engineering student at Yaşar University in Izmir,
-                        currently on the autonomous systems team building a vision-guided competition
-                        drone — mission logic over ArduPilot, a two-stage YOLO pipeline on an onboard
-                        Jetson, and the ground station that watches it fly. Before that I spent a year
-                        prototyping industrial computer-vision pipelines at CLB Automation. Most of what
-                        I know about shipping software came from those two places, not a lecture hall.
+                        I&apos;m a 3rd-year software engineering student at Yaşar University in Izmir.
+                        I build things end to end, and I&apos;m exploring machine learning alongside.
+                        I spent a year at CLB Automation
+                        prototyping computer-vision tools for industrial lines, and I&apos;ve worked on
+                        autonomous flight and vision software for a competition drone. Both taught me
+                        what software looks like once it has to run outside a demo, and both left me
+                        curious about the models underneath it.
                     </p>
                     <p className="text-muted leading-[1.75] text-base">
-                        I learn by building things I actually need — a speed-reading app when I wanted
-                        to read faster, driver fixes when my own laptop wouldn&apos;t run Linux properly,
-                        fifty-plus hours in Gazebo before letting anything near a real airframe. That
-                        habit is what is pulling me toward machine learning and MLOps next: I want to be
-                        the one training the model and debugging why it&apos;s still wrong in production,
-                        not just the one calling its API.
+                        I learn by building what I actually need, and by taking things apart until I
+                        understand why they behave the way they do. I&apos;d rather spend a week
+                        chasing down a bug than paper over it, because that is where most of the real
+                        learning happens. Machine learning is the part I&apos;m most curious about: I want to
+                        understand how a model is trained and why it&apos;s still wrong in
+                        production, not just call its API.
                     </p>
                 </div>
             </Reveal>
