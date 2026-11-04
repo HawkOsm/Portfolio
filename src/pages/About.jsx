@@ -100,24 +100,6 @@ const About = () => (
             </div>
         </section>
 
-        <section id="skills" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
-            <Reveal>
-                <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">What I work with</h2>
-            </Reveal>
-            <div className="grid gap-9 gap-x-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
-                {instruments.map((group, i) => (
-                    <Reveal key={group.group} delay={i * 60}>
-                        <h3 className="text-xs uppercase tracking-[0.1em] text-accent mb-3.5">{group.group}</h3>
-                        <ul className="flex flex-col gap-2">
-                            {group.items.map((item) => (
-                                <li key={item} className="text-body text-[15px]">{item}</li>
-                            ))}
-                        </ul>
-                    </Reveal>
-                ))}
-            </div>
-        </section>
-
         <section id="certificates" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
             <Reveal>
                 <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">Certificates</h2>
@@ -132,10 +114,28 @@ const About = () => (
                                 className="w-full aspect-[4/3] object-contain bg-ink rounded-lg mb-3.5"
                                 loading="lazy"
                             />
-                            <span className="text-[11px] tracking-[0.06em] text-faint">{cert.date}</span>
+                            {cert.date && <span className="text-[11px] tracking-[0.06em] text-faint">{cert.date}</span>}
                             <div className="font-display font-semibold text-[15px] mt-1">{cert.title}</div>
                             <p className="text-muted text-[13px] mt-1 leading-[1.5]">{cert.org}</p>
                         </a>
+                    </Reveal>
+                ))}
+            </div>
+        </section>
+
+        <section id="skills" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
+            <Reveal>
+                <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">What I work with</h2>
+            </Reveal>
+            <div className="grid gap-9 gap-x-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
+                {instruments.map((group, i) => (
+                    <Reveal key={group.group} delay={i * 60}>
+                        <h3 className="text-xs uppercase tracking-[0.1em] text-accent mb-3.5">{group.group}</h3>
+                        <ul className="flex flex-col gap-2">
+                            {group.items.map((item) => (
+                                <li key={item} className="text-body text-[15px]">{item}</li>
+                            ))}
+                        </ul>
                     </Reveal>
                 ))}
             </div>

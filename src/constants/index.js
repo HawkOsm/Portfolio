@@ -95,12 +95,12 @@ export const projects = [
     {
         id: 'blackbox',
         num: '04',
-        title: 'Blackbox — a flight recorder for Linux',
+        title: 'Blackbox — an error logger for Linux',
         tag: 'Systems · Linux',
         role: 'Solo — design and build',
         link: 'https://github.com/HawkOsm/BlackBox',
-        short: 'An always-on recorder that keeps the evidence of what broke on my machine, and when.',
-        body: 'A small Rust service that runs all the time on my Arch Linux desktop and records what I need after something goes wrong: crashes, error logs, failed logins, package upgrades, freezes and system load. A native GTK app shows any of those moments together with everything else that was happening at the time. It costs 0.14% of one CPU core and about 6 MB of memory, so I never notice it running.',
+        short: 'An always-on error logger that keeps the evidence of what broke on my machine, and when.',
+        body: 'A small Rust service that runs all the time on a Linux desktop and records what I need after something goes wrong: crashes, error logs, failed logins, package upgrades, freezes, system load, power draw and temperatures. A native GTK app shows any of those moments together with everything else that was happening at the time. It works on any Linux distribution that uses systemd, which covers nearly all of them, and costs 0.14% of one CPU core and about 6 MB of memory, so I never notice it running.',
         sections: [
             {
                 title: 'The problem',
@@ -109,7 +109,7 @@ export const projects = [
             {
                 title: 'How it works',
                 items: [
-                    ['Six sources, one writer.', 'Process exits from the kernel, system load from /proc and nvidia-smi, journald, auditd, pacman\'s log and the previous boot\'s last journal entry. Each runs on its own thread and writes through a single SQLite connection, one transaction per event.'],
+                    ['Six sources, one writer.', 'Process exits from the kernel, system load, power and temperatures from /proc, sysfs and nvidia-smi, journald, auditd, the package manager\'s history (pacman, apt, dnf or zypper) and the previous boot\'s last journal entry. Each runs on its own thread under a supervisor that restarts it if it crashes, and hands what it finds to one writer thread that commits everything queued in a single transaction, so a burst costs one disk sync instead of one per row.'],
                     ['A timeline index.', 'Every notable event gets a row in one time-indexed table that points at its full record, so "everything within ±2 minutes" across all six sources is a range scan on one index, not a join over six tables.'],
                     ['A read-only viewer.', 'A GTK4/libadwaita app that runs only while its window is open. It shows any event with a CPU/memory/GPU chart around it, the crash\'s stack trace, the package upgrades from the week before, and every other event in that window.'],
                 ],
@@ -119,9 +119,10 @@ export const projects = [
                 items: [
                     ['Filter in the kernel, not in Rust.', 'Recording every process exit would mean about 100 events a second of noise. A classic BPF program on the netlink socket drops forks, thread exits and clean exits before the kernel even queues them. A unit test runs the filter through a small BPF interpreter for all 65,536 possible exit statuses and checks it agrees with the Rust rule. Together with 100 ms batching, wakeups fell from 98–136 a second to 8.5.'],
                     ['Durable over fast.', 'SQLite runs with synchronous=FULL. With the default, the last ~30 seconds sit in the page cache and die with a frozen machine, and those are exactly the seconds a flight recorder exists for. At one write every ~10 seconds, the extra fsync costs nothing noticeable.'],
-                    ['Record a freeze after it happens.', 'Nothing can write while the machine is frozen. So at every boot Blackbox reads the previous boot\'s last journal entry: a clean shutdown always ends with "Journal stopped", and anything else is stored as an unclean end at the moment the log stopped. 7 of the 73 earlier boots on my machine ended that way.'],
-                    ['A size cap that never blocks recording.', 'The database is a 7.5 GB ring buffer. Deleting the oldest data in one statement stalled writers for 1.2 seconds, so the trim deletes in chunks of 1,000 rows and releases the lock in between: the worst write during a trim fell to 7.4 ms. The test for it also caught a real bug: one row stamped in the far future made the trim delete every real row.'],
+                    ['Record a freeze after it happens.', 'Nothing can write while the machine is frozen. So at every boot Blackbox reads the previous boot\'s last journal entry: a clean shutdown always ends with "Journal stopped", and anything else is stored as an unclean end at the moment the log stopped. 2 of the 90 boots it has recorded on my machine ended that way.'],
+                    ['A size cap that never blocks recording.', 'The database is a 50 GB ring buffer. Deleting the oldest data in one statement stalled writers for 1.2 seconds, so the trim deletes in chunks of 1,000 rows and releases the lock in between: the worst write during a trim fell to 7.4 ms. The test for it also caught a real bug: one row stamped in the far future made the trim delete every real row.'],
                     ['Names for processes that are already gone.', 'An exit event carries no name, and the process is usually gone from /proc when it arrives. The collector keeps a pid-to-name table fed by exec events, and names crashes afterwards from systemd-coredump, which also gives the executable path and stack trace.'],
+                    ['Not tied to one distribution.', 'The package histories of pacman, apt, dnf and zypper each sit behind one small trait, and everything that differs between distributions lives in one file. CI builds and tests the recorder inside Arch, Debian, Ubuntu, Fedora, Rocky Linux and openSUSE containers, installs a package in each and checks that the recorder finds it in that distribution\'s real history.'],
                 ],
             },
             {
@@ -130,13 +131,13 @@ export const projects = [
                     ['0.14%', 'of one CPU core for the whole service, including its journalctl and tail helpers.'],
                     ['~6 MB', 'of private memory, and under 10 wakeups a second.'],
                     ['~1 MB', 'of database growth a day at the current event rate.'],
-                    ['25 tests', 'covering the parsers, the exit rule, the kernel filter, crash naming, boot endings, audit-log resume, the write path and the ring-buffer trim, plus a stress test for trimming under concurrent writes.'],
+                    ['82 tests', 'covering the parsers for every log format, the exit rule, the kernel filter, crash naming, boot endings, audit-log resume, the write path and the ring-buffer trim, plus end-to-end tests of the real binary and a stress test for trimming under concurrent writes.'],
                 ],
             },
         ],
-        image: { src: '/assets/projects/blackbox-viewer.webp', alt: 'The Blackbox viewer: a list of recorded problems on the left, and on the right the last 24 hours with error and warning counts, current CPU, memory and GPU, and a load chart.' },
+        image: { src: '/assets/projects/blackbox-viewer.webp', alt: 'The Blackbox viewer: recorded problems on the left, each with a 24-hour sparkline; on the right the day at a glance, with events, usage, temperature and power on one time axis, and the running processes with pause, end task and force kill.' },
         todo: [],
-        stack: ['Rust', 'SQLite', 'Linux', 'Python', 'GTK4 · libadwaita', 'systemd', 'netlink · BPF', 'auditd'],
+        stack: ['Rust', 'SQLite', 'Linux', 'Python', 'GTK4 · libadwaita', 'systemd', 'netlink · BPF', 'auditd', 'GitHub Actions'],
         logos: ['Rust', 'SQLite', 'Linux', 'Python'],
     },
     {
@@ -171,6 +172,7 @@ export const education = {
 };
 
 export const certificates = [
+    { id: 'gdg-core-team', title: 'Core Team Member — GDG on Campus Yaşar University', org: 'Google Developer Group on Campus', date: '', image: '/assets/certificates/gdg-core-team.webp' },
     { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition', org: 'T3 Foundation', date: 'SEP 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
     { id: 'yasar-efes', title: 'EFES-2026 Defense Project Contest', org: 'Yaşar University — Rectorate letter', date: 'JUN 2026', image: '/assets/certificates/yasar-university-efes.jpg' },
     { id: 'ai4purpose', title: 'AI4Purpose Hackathon', org: 'Interreg NEXT MED · İzmir Katip Çelebi University', date: 'JAN — FEB 2026', image: '/assets/certificates/ai4purpose-hackathon.png' },
