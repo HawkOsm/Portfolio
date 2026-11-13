@@ -80,6 +80,23 @@ const ProjectOverlay = ({ project, onClose }) => {
                             </a>
                         )}
 
+                        {p.video && (
+                            <figure className="mb-8">
+                                <video
+                                    src={p.video.src}
+                                    poster={p.video.poster}
+                                    controls
+                                    muted
+                                    loop
+                                    playsInline
+                                    preload="none"
+                                    aria-label={p.video.label}
+                                    className="w-full rounded-xl border border-line"
+                                />
+                                <figcaption className="text-[13px] text-faint mt-2">{p.video.label}</figcaption>
+                            </figure>
+                        )}
+
                         <div className="flex flex-col gap-6.5">
                             {(p.sections ?? [
                                 { title: 'The problem', text: p.problem },
