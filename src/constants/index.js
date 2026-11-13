@@ -56,28 +56,8 @@ export const projects = [
         logos: ['Python', 'OpenCV', 'NVIDIA Jetson', 'Docker', 'Linux'],
     },
     {
-        id: 'clevo-linux',
-        num: '02',
-        title: 'Monster Notebook Linux Fixes',
-        tag: 'Open Source',
-        role: 'Author and maintainer',
-        link: 'https://github.com/HawkOsm/monster-notebook-linux',
-        short: 'Field guides for Clevo laptops on Linux.',
-        body: 'Field guides for getting Clevo-based Monster laptops running properly on Linux — drivers, graphics, and touchpad fixes I needed myself. Sitting at 3 stars, 1 fork, and 13 unique clones in the last two weeks — small but real traffic for a two-model niche repo.',
-        problem: 'Clevo-based Monster laptops ship with hardware that Linux does not handle out of the box: hybrid graphics that will not switch, a touchpad that reports nothing, fan curves that never spin up. The fixes are scattered across dead forum threads.',
-        built: [
-            'Step-by-step guides per model, written from the actual repair path rather than copy-pasted advice.',
-            'Scripts for the fixes that are the same every time — graphics switching, touchpad quirks, power tuning.',
-            'Kept current as kernels move, so the instructions still apply on a fresh install.',
-            'Covers the Monster TULPAR T6 V2.1 AI Creator (Ubuntu 26.04, Arch) and ABRA A5 V20.2 (Ubuntu 22.04) — both Clevo/TONGFANG chassis, so the fixes carry over to TUXEDO, XMG/Schenker, and System76 machines on the same shells.',
-        ],
-        todo: [],
-        stack: ['Linux', 'Bash', 'Git'],
-        logos: ['Linux', 'Bash', 'Git'],
-    },
-    {
         id: 'senior-app',
-        num: '03',
+        num: '02',
         title: 'Senior Project Management Platform',
         tag: 'Web App · Team Project',
         role: 'Team Captain',
@@ -97,7 +77,7 @@ export const projects = [
     },
     {
         id: 'blackbox',
-        num: '04',
+        num: '03',
         title: 'Blackbox — an error logger for Linux',
         tag: 'Systems · Linux',
         role: 'Solo — design and build',
@@ -145,7 +125,7 @@ export const projects = [
     },
     {
         id: 'rsvp-reader',
-        num: '05',
+        num: '04',
         title: 'RSVP Reader',
         tag: 'Web, Desktop & Android App',
         role: 'Solo — design and build',
@@ -165,8 +145,28 @@ export const projects = [
         stack: ['TypeScript', 'React', 'Tauri', 'Rust', 'Capacitor', 'Android', 'IndexedDB', 'pdf.js', 'Vite'],
         logos: ['React', 'Rust', 'Android'],
     },
-];
+    {
+        id: 'clevo-linux-fixes',
+        num: '05',
+        title: 'Clevo Linux Fixes',
+        tag: 'Open Source',
+        role: 'Author and maintainer',
+        link: 'https://github.com/HawkOsm/clevo-linux-fixes',
+        short: 'Field guides for Clevo/TONGFANG laptops on Linux.',
+        body: 'Unofficial field guides for running Linux on Clevo/TONGFANG-based notebooks — Monster, TUXEDO and XMG are all built on the same shells. Every fix was hit, diagnosed and verified on real hardware: random hard freezes, Bluetooth firmware crashes, NVIDIA after a kernel upgrade, a dead keyboard backlight and touchpad, thermal throttling. Started as Monster Notebook Linux Fixes and renamed once it outgrew one brand.',
+        problem: 'Monster notebooks ship rebadged Clevo hardware that Linux handles poorly out of the box: the keyboard backlight and touchpad stay dead until a driver patch, the machine hard-freezes at random with no logs, Bluetooth firmware crashes, the discrete GPU never idles. The fixes are scattered across dead forum threads.',
+        built: [
+            'Step-by-step how-to guides per symptom, written from the actual diagnosis rather than copy-pasted advice.',
+            'Explanations of why things break — a DRAM-less NVMe that freezes the machine through PCIe ASPM, and the tuxedo-drivers DMI check that rejects Monster hardware.',
+            'Reference tables — a Windows-to-Linux driver map, hardware tables, EC register maps and tccd profile definitions.',
+            'Verified on a Monster TULPAR T6 V2.1 AI Creator (Ubuntu 26.04, and Arch with Hyprland) and an ABRA A5 V20.2 (Ubuntu 22.04); the fixes carry over to TUXEDO, XMG/Schenker and System76 machines on the same shells.',
+        ],
+        todo: [],
+        stack: ['Linux', 'Bash', 'Git'],
+        logos: ['Linux', 'Bash', 'Git'],
+    },
 
+];
 export const education = {
     period: 'SEP 2024 — CURRENT',
     org: 'Yaşar University, Izmir',

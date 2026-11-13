@@ -11,7 +11,7 @@ const github = socials.find((s) => s.name === 'GitHub');
 const linkedin = socials.find((s) => s.name === 'LinkedIn');
 
 // Home only teases two projects; the full set lives on the Projects page.
-const homeProjectIds = ['kamikaze', 'clevo-linux'];
+const homeProjectIds = ['kamikaze', 'clevo-linux-fixes'];
 const homeProjects = homeProjectIds
     .map((id) => projects.find((p) => p.id === id))
     .filter(Boolean);
