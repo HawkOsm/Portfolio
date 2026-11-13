@@ -1,12 +1,16 @@
 import { Link } from '../router.jsx';
 import Reveal from '../components/Reveal.jsx';
 import Footer from '../sections/Footer.jsx';
+import { useState } from 'react';
+import CertificateOverlay from '../components/CertificateOverlay.jsx';
 import useLang from '../i18n/useLang.js';
 import useContent from '../i18n/useContent.js';
 
 const About = () => {
     const { t } = useLang();
     const { education, experience, certificates, instruments } = useContent();
+    const [activeCertId, setActiveCertId] = useState(null);
+    const activeCert = certificates.find((c) => c.id === activeCertId) ?? null;
     return (
         <>
             <section className="container-site py-16 md:py-24 border-b border-line grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 lg:gap-16 items-start">
@@ -100,7 +104,7 @@ const About = () => {
                 <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
                     {certificates.map((cert, i) => (
                         <Reveal key={cert.id} delay={i * 40}>
-                            <a href={cert.image} target="_blank" rel="noopener noreferrer" className="card p-3.5">
+                            <button type="button" onClick={() => setActiveCertId(cert.id)} className="card p-3.5 w-full h-full text-left">
                                 <img
                                     src={cert.image}
                                     alt={cert.title}
@@ -110,7 +114,7 @@ const About = () => {
                                 {cert.date && <span className="text-[11px] tracking-[0.06em] text-faint">{cert.date}</span>}
                                 <div className="font-display font-semibold text-[15px] mt-1">{cert.title}</div>
                                 <p className="text-muted text-[13px] mt-1 leading-[1.5]">{cert.org}</p>
-                            </a>
+                            </button>
                         </Reveal>
                     ))}
                 </div>
@@ -147,6 +151,8 @@ const About = () => {
                     <Link href="/contact" className="btn-primary whitespace-nowrap">{t.about.getInTouch}</Link>
                 </Reveal>
             </section>
+
+            <CertificateOverlay cert={activeCert} onClose={() => setActiveCertId(null)} />
 
             <Footer link={{ href: '/projects', label: t.footer.seeProjects }} />
         </>
