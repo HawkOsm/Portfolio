@@ -42,7 +42,7 @@ const About = () => {
                             I build things end to end, and I&apos;m exploring machine learning alongside.
                             I spent a year at CLB Automation
                             prototyping computer-vision tools for industrial lines, and I&apos;ve worked on
-                            autonomous flight and vision software for a competition drone. Both taught me
+                            autonomous flight and vision software for a competition UAV. Both taught me
                             what software looks like once it has to run outside a demo, and both left me
                             curious about the models underneath it.
                         </p>
@@ -52,7 +52,7 @@ const About = () => {
                             chasing down a bug than paper over it, because that is where most of the real
                             learning happens. Machine learning is the part I&apos;m most curious about: I want to
                             understand how a model is trained and why it&apos;s still wrong in
-                            production, not just call its API.
+                            production, not just use the tools built on top of it.
                         </p>
                     </div>
                 </Reveal>
