@@ -1,23 +1,21 @@
 import { Link } from '../router.jsx';
 import Reveal from '../components/Reveal.jsx';
-import Footer from '../sections/Footer.jsx';
 import { useState } from 'react';
 import CertificateOverlay from '../components/CertificateOverlay.jsx';
-import useLang from '../i18n/useLang.js';
-import useContent from '../i18n/useContent.js';
+import Footer from '../sections/Footer.jsx';
+import { education, experience, certificates, instruments } from '../constants/index.js';
 
 const About = () => {
-    const { t } = useLang();
-    const { education, experience, certificates, instruments } = useContent();
     const [activeCertId, setActiveCertId] = useState(null);
     const activeCert = certificates.find((c) => c.id === activeCertId) ?? null;
+
     return (
         <>
             <section className="container-site py-16 md:py-24 border-b border-line grid lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] gap-10 lg:gap-16 items-start">
                 <Reveal>
                     <img
                         src="/assets/portrait.png"
-                        alt={t.about.portraitAlt}
+                        alt="Osman Sahin Guler"
                         className="w-full max-w-[440px] h-auto select-none"
                         style={{
                             WebkitMaskImage:
@@ -31,19 +29,30 @@ const About = () => {
                     />
                 </Reveal>
                 <Reveal>
-                    <p className="eyebrow mb-6">{t.about.eyebrow}</p>
+                    <p className="eyebrow mb-6">About</p>
                     <h1
                         className="font-display font-bold leading-[0.96] tracking-[-0.035em] mb-8"
                         style={{ fontSize: 'clamp(2rem, 3.6vw, 3.2rem)' }}
                     >
-                        {t.about.h1Lead}<br />{t.about.h1And}<span className="text-accent">{t.about.h1Accent}</span>
+                        Curious how things work,<br />and <span className="text-accent">why they break.</span>
                     </h1>
                     <div className="flex flex-col gap-5 max-w-[52ch]">
                         <p className="text-muted leading-[1.75] text-base">
-                            {t.about.p1}
+                            I&apos;m a 3rd-year software engineering student at Yaşar University in Izmir.
+                            I build things end to end, and I&apos;m exploring machine learning alongside.
+                            I spent a year at CLB Automation
+                            prototyping computer-vision tools for industrial lines, and I&apos;ve worked on
+                            autonomous flight and vision software for a competition drone. Both taught me
+                            what software looks like once it has to run outside a demo, and both left me
+                            curious about the models underneath it.
                         </p>
                         <p className="text-muted leading-[1.75] text-base">
-                            {t.about.p2}
+                            I learn by building what I actually need, and by taking things apart until I
+                            understand why they behave the way they do. I&apos;d rather spend a week
+                            chasing down a bug than paper over it, because that is where most of the real
+                            learning happens. Machine learning is the part I&apos;m most curious about: I want to
+                            understand how a model is trained and why it&apos;s still wrong in
+                            production, not just call its API.
                         </p>
                     </div>
                 </Reveal>
@@ -51,7 +60,7 @@ const About = () => {
 
             <section id="education" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
                 <Reveal>
-                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">{t.about.education}</h2>
+                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">Education</h2>
                 </Reveal>
                 <Reveal className="grid sm:grid-cols-[minmax(0,180px)_minmax(0,1fr)] gap-4 sm:gap-10">
                     <span className="text-xs tracking-[0.06em] text-faint pt-1.5">{education.period}</span>
@@ -69,7 +78,7 @@ const About = () => {
             <section id="experience" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
                 <Reveal>
                     <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em] md:sticky md:top-24 self-start">
-                        {t.about.experience}
+                        Experience
                     </h2>
                 </Reveal>
                 <div className="flex flex-col gap-11">
@@ -99,7 +108,7 @@ const About = () => {
 
             <section id="certificates" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
                 <Reveal>
-                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">{t.about.certificates}</h2>
+                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">Certificates</h2>
                 </Reveal>
                 <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
                     {certificates.map((cert, i) => (
@@ -122,7 +131,7 @@ const About = () => {
 
             <section id="skills" className="container-site py-14 md:py-18 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.4fr)] gap-8 md:gap-16">
                 <Reveal>
-                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">{t.about.skills}</h2>
+                    <h2 className="font-display font-semibold text-[clamp(1.4rem,2.4vw,2rem)] tracking-[-0.02em]">What I work with</h2>
                 </Reveal>
                 <div className="grid gap-9 gap-x-8" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))' }}>
                     {instruments.map((group, i) => (
@@ -144,17 +153,17 @@ const About = () => {
                         className="font-display font-bold tracking-[-0.03em] leading-[1.05] max-w-[20ch]"
                         style={{ fontSize: 'clamp(1.8rem, 4.4vw, 3.5rem)' }}
                     >
-                        {t.about.fit}
+                        Think I&apos;d fit your team?
                     </h2>
                 </Reveal>
                 <Reveal className="sm:justify-self-end">
-                    <Link href="/contact" className="btn-primary whitespace-nowrap">{t.about.getInTouch}</Link>
+                    <Link href="/contact" className="btn-primary whitespace-nowrap">Get in touch →</Link>
                 </Reveal>
             </section>
 
             <CertificateOverlay cert={activeCert} onClose={() => setActiveCertId(null)} />
 
-            <Footer link={{ href: '/projects', label: t.footer.seeProjects }} />
+            <Footer link={{ href: '/projects', label: 'See the projects →' }} />
         </>
     );
 };

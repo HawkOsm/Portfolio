@@ -2,11 +2,9 @@ import { useEffect, useState } from 'react';
 import Reveal from '../components/Reveal.jsx';
 import TechBadge from '../components/TechBadge.jsx';
 import Footer from '../sections/Footer.jsx';
-import useLang from '../i18n/useLang.js';
-import useContent from '../i18n/useContent.js';
+import { projects } from '../constants/index.js';
 
 const ProjectOverlay = ({ project, onClose }) => {
-    const { t } = useLang();
     useEffect(() => {
         if (!project) return undefined;
         const onKey = (e) => {
@@ -40,7 +38,7 @@ const ProjectOverlay = ({ project, onClose }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        aria-label={t.projects.close}
+                        aria-label="Close"
                         className="absolute top-4 right-4 md:top-6 md:right-6 z-10 w-10 h-10 rounded-full bg-ink/70 border border-border flex items-center justify-center text-paper hover:border-accent hover:text-accent transition-colors"
                     >
                         ✕
@@ -66,9 +64,9 @@ const ProjectOverlay = ({ project, onClose }) => {
                         </div>
                         <div className="flex gap-4.5 items-center flex-wrap mb-8">
                             <a href={p.link} target="_blank" rel="noopener noreferrer" className="btn-primary !text-[14px] !px-6 !py-3">
-                                {t.projects.viewOnGithub}
+                                View on GitHub ↗
                             </a>
-                            <span className="text-[13px] text-faint">{t.projects.role}: {p.role}</span>
+                            <span className="text-[13px] text-faint">Role: {p.role}</span>
                         </div>
 
                         {p.image && (
@@ -101,8 +99,8 @@ const ProjectOverlay = ({ project, onClose }) => {
 
                         <div className="flex flex-col gap-6.5">
                             {(p.sections ?? [
-                                { title: t.projects.problem, text: p.problem },
-                                { title: t.projects.built, items: p.built },
+                                { title: 'The problem', text: p.problem },
+                                { title: 'What I built', items: p.built },
                             ]).map((section) => (
                                 <div key={section.title}>
                                     <h3 className="text-xs tracking-[0.14em] uppercase text-accent mb-3">{section.title}</h3>
@@ -125,7 +123,7 @@ const ProjectOverlay = ({ project, onClose }) => {
                             ))}
                             {p.todo.length > 0 && (
                                 <div className="border border-dashed border-[#3a3d42] rounded-xl px-5 py-4.5">
-                                    <div className="text-[11px] tracking-[0.14em] uppercase text-warn mb-2">{t.projects.todo}</div>
+                                    <div className="text-[11px] tracking-[0.14em] uppercase text-warn mb-2">TODO — fill in</div>
                                     <ul className="flex flex-col gap-1.5">
                                         {p.todo.map((t) => (
                                             <li key={t} className="text-muted text-sm leading-[1.6]">{t}</li>
@@ -142,8 +140,6 @@ const ProjectOverlay = ({ project, onClose }) => {
 };
 
 const Projects = () => {
-    const { t } = useLang();
-    const { projects } = useContent();
     const [activeId, setActiveId] = useState(null);
 
     // Support deep links like /projects#kamikaze (used by the Home page row links)
@@ -155,7 +151,7 @@ const Projects = () => {
             setActiveId(id);
             window.history.replaceState({}, '', window.location.pathname);
         }
-    }, [projects]);
+    }, []);
 
     const activeProject = projects.find((p) => p.id === activeId) ?? null;
 
@@ -186,14 +182,14 @@ const Projects = () => {
                                         <TechBadge key={name} name={name} className="text-[13px] text-muted" />
                                     ))}
                                 </div>
-                                <span className="text-[13px] text-faint group-hover:text-accent transition-colors">{t.projects.viewDetails}</span>
+                                <span className="text-[13px] text-faint group-hover:text-accent transition-colors">View details →</span>
                             </button>
                         </Reveal>
                     ))}
                 </div>
             </section>
 
-            <Footer link={{ href: '/contact', label: t.footer.getInTouch }} />
+            <Footer link={{ href: '/contact', label: 'Get in touch →' }} />
 
             <ProjectOverlay project={activeProject} onClose={() => setActiveId(null)} />
         </>

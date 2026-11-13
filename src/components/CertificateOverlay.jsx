@@ -1,11 +1,8 @@
 import { useEffect } from 'react';
-import useLang from '../i18n/useLang.js';
 
 // Full-size certificate viewer. Same behaviour as the project overlay:
 // Esc or a click outside closes it, and page scroll is locked while it is open.
 const CertificateOverlay = ({ cert, onClose }) => {
-    const { t } = useLang();
-
     useEffect(() => {
         if (!cert) return undefined;
         const onKey = (e) => {
@@ -38,7 +35,7 @@ const CertificateOverlay = ({ cert, onClose }) => {
                     <button
                         type="button"
                         onClick={onClose}
-                        aria-label={t.nav.close}
+                        aria-label="Close"
                         className="absolute top-4 right-4 md:top-6 md:right-6 z-10 w-10 h-10 rounded-full bg-ink/70 border border-border flex items-center justify-center text-paper hover:border-accent hover:text-accent transition-colors"
                     >
                         ✕
