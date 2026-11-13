@@ -1,4 +1,5 @@
 import { RouterProvider, useRouter } from './router.jsx';
+import { LanguageProvider } from './i18n/LanguageProvider.jsx';
 import AnnouncementBar from './sections/AnnouncementBar.jsx';
 import Navbar from './sections/Navbar.jsx';
 import Home from './pages/Home.jsx';
@@ -15,13 +16,15 @@ const Routes = () => {
 };
 
 const App = () => (
-    <RouterProvider>
-        <main>
-            <AnnouncementBar />
-            <Navbar />
-            <Routes />
-        </main>
-    </RouterProvider>
+    <LanguageProvider>
+        <RouterProvider>
+            <main>
+                <AnnouncementBar />
+                <Navbar />
+                <Routes />
+            </main>
+        </RouterProvider>
+    </LanguageProvider>
 );
 
 export default App;

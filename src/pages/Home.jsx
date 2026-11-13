@@ -5,18 +5,20 @@ import MatrixRain from '../components/MatrixRain.jsx';
 import TechBadge from '../components/TechBadge.jsx';
 import Footer from '../sections/Footer.jsx';
 import useHeroSnap from '../hooks/useHeroSnap.js';
-import { hud, projects, experience, education, socials } from '../constants/index.js';
+import { socials } from '../constants/index.js';
+import useLang from '../i18n/useLang.js';
+import useContent from '../i18n/useContent.js';
 
 const github = socials.find((s) => s.name === 'GitHub');
 const linkedin = socials.find((s) => s.name === 'LinkedIn');
 
 // Home only teases two projects; the full set lives on the Projects page.
 const homeProjectIds = ['kamikaze', 'clevo-linux-fixes'];
-const homeProjects = homeProjectIds
-    .map((id) => projects.find((p) => p.id === id))
-    .filter(Boolean);
 
 const Home = () => {
+    const { t } = useLang();
+    const { hud, projects, experience, education } = useContent();
+    const homeProjects = homeProjectIds.map((id) => projects.find((p) => p.id === id)).filter(Boolean);
     const heroRef = useRef(null);
     const educationRef = useRef(null);
     useHeroSnap(heroRef, educationRef);
@@ -40,7 +42,7 @@ const Home = () => {
                     <Reveal className="flex items-center gap-3.5 flex-wrap font-mono text-[11.5px] tracking-[0.16em] uppercase text-muted">
                         <span className="flex items-center gap-2 text-accent">
                             <span className="w-1.5 h-1.5 rounded-full bg-accent pulse-dot" />
-                            inference · running
+                            {t.home.inference}
                         </span>
                         <span className="w-[26px] h-px bg-line" />
                         <span>Izmir, TR · 38.42°N 27.14°E</span>
@@ -51,14 +53,14 @@ const Home = () => {
                             className="font-display font-bold leading-[1.06] tracking-[-0.04em] max-w-[16ch]"
                             style={{ fontSize: 'clamp(2rem, 6.5vw, 6rem)' }}
                         >
-                            I&apos;m Osman, a <span className="text-accent">software engineer.</span>
+                            {t.home.heroLead}<span className="text-accent">{t.home.heroAccent}</span>
                         </h1>
                         <p className="mt-5 max-w-[72ch] text-base text-muted leading-[1.7]">
-                            Full-Stack — Machine Learning.
+                            {t.home.heroSub}
                         </p>
                         <div className="flex flex-wrap items-center gap-4 mt-7">
-                            <Link href="/contact" className="btn-primary">Hire me →</Link>
-                            <Link href="/about" className="btn-secondary">More about me</Link>
+                            <Link href="/contact" className="btn-primary">{t.home.hire}</Link>
+                            <Link href="/about" className="btn-secondary">{t.home.moreAboutMe}</Link>
                         </div>
                     </Reveal>
 
@@ -75,7 +77,7 @@ const Home = () => {
                         ))}
                         <div className="bg-ink/92 px-4 py-3 min-w-0">
                             <div className="font-mono text-[11px] tracking-[0.16em] uppercase text-muted whitespace-nowrap overflow-hidden text-ellipsis">
-                                Fast links
+                                {t.home.fastLinks}
                             </div>
                             <div className="flex items-center gap-3.5 mt-1.5">
                                 <a
@@ -112,9 +114,11 @@ const Home = () => {
                 className="container-site py-16 md:py-20 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)] gap-10 md:gap-16 items-start"
             >
                 <Reveal>
-                    <p className="eyebrow mb-3.5">Education</p>
+                    <p className="eyebrow mb-3.5">{t.home.education}</p>
                     <h2 className="font-display font-semibold text-[clamp(1.6rem,3.2vw,2.5rem)] tracking-[-0.03em] leading-[1.1]">
-                        Studying,<br />exploring,<br />building.
+                        {t.home.eduHeading.map((line, i) => (
+                            <span key={line}>{i > 0 && <br />}{line}</span>
+                        ))}
                     </h2>
                 </Reveal>
                 <Reveal>
@@ -126,12 +130,12 @@ const Home = () => {
                             </div>
                             <div className="text-[15px] text-muted mt-2">{education.role}</div>
                             <p className="text-muted text-[15px] leading-[1.7] mt-3.5 max-w-[56ch]">
-                                Third year, Software engineering students. Building projects, competing in hackathons, and interships simultaneously.
+                                {t.home.eduText}
                             </p>
                             <div className="flex gap-4.5 items-center flex-wrap mt-5.5">
-                                <Link href="/about" className="btn-primary !text-[14px] !px-6 !py-3">More about me →</Link>
+                                <Link href="/about" className="btn-primary !text-[14px] !px-6 !py-3">{t.home.moreAboutMeArrow}</Link>
                                 <Link href="/about#certificates" className="text-sm text-muted hover:text-accent transition-colors">
-                                    Certificates &amp; competitions
+                                    {t.home.certsLink}
                                 </Link>
                             </div>
                         </div>
@@ -142,9 +146,9 @@ const Home = () => {
             <section id="work">
                 <Reveal className="flex justify-between items-baseline gap-6 container-site pt-16 md:pt-20 pb-6 flex-wrap">
                     <h2 className="font-display font-semibold text-[clamp(1.7rem,3.6vw,3rem)] tracking-[-0.03em] whitespace-nowrap">
-                        Selected work
+                        {t.home.selectedWork}
                     </h2>
-                    <Link href="/projects" className="text-sm tracking-[0.06em] text-accent">All projects →</Link>
+                    <Link href="/projects" className="text-sm tracking-[0.06em] text-accent">{t.home.allProjects}</Link>
                 </Reveal>
                 {homeProjects.map((p) => (
                     <Reveal key={p.id}>
@@ -178,11 +182,11 @@ const Home = () => {
                 className="container-site py-16 md:py-20 border-b border-line grid md:grid-cols-[minmax(0,1fr)_minmax(0,2.2fr)] gap-10 md:gap-16"
             >
                 <Reveal>
-                    <p className="eyebrow mb-3.5">Track record</p>
+                    <p className="eyebrow mb-3.5">{t.home.trackRecord}</p>
                     <h2 className="font-display font-semibold text-[clamp(1.6rem,3.2vw,2.5rem)] tracking-[-0.03em] mb-4">
-                        Where I&apos;ve been
+                        {t.home.whereIveBeen}
                     </h2>
-                    <Link href="/about#experience" className="text-sm text-accent">Full experience log →</Link>
+                    <Link href="/about#experience" className="text-sm text-accent">{t.home.fullLog}</Link>
                 </Reveal>
                 <div className="flex flex-col">
                     {experience.map((entry) => (
@@ -213,17 +217,17 @@ const Home = () => {
                     }}
                 />
                 <Reveal className="relative">
-                    <p className="eyebrow mb-5">Open to work</p>
+                    <p className="eyebrow mb-5">{t.home.openToWork}</p>
                     <h2
                         className="font-display font-bold tracking-[-0.04em] leading-none mx-auto mb-5 max-w-[16ch]"
                         style={{ fontSize: 'clamp(2rem, 6vw, 4.75rem)' }}
                     >
-                        Let&apos;s build together.
+                        {t.home.buildTogether}
                     </h2>
                     <p className="text-muted text-base leading-[1.75] mx-auto mb-8 max-w-[52ch]">
-                        Internships, junior roles, or any type of project, I&apos;m here to help.
+                        {t.home.openText}
                     </p>
-                    <Link href="/contact" className="btn-primary">Start a conversation →</Link>
+                    <Link href="/contact" className="btn-primary">{t.home.startConversation}</Link>
                 </Reveal>
             </section>
 

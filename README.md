@@ -35,6 +35,8 @@ that needs no backend.
   `prefers-reduced-motion` (rain pauses, hero snap is disabled).
 - **Certificates gallery**, project case studies (problem / what was built / stack) and CV download.
 - **Contact form** via EmailJS; without keys it degrades gracefully and shows the direct email address.
+- **English / Türkçe** — a toggle in the navbar. The choice is saved in `localStorage` and defaults to the
+  browser language. Built with a tiny custom context in `src/i18n/`, no i18n library.
 - **No heavy dependencies** — no router, animation or canvas library.
 
 ## Tech stack
@@ -90,6 +92,12 @@ public/assets/      Icons, project images, certificates, portrait, CV PDF
 
 All copy lives in `src/constants/index.js` — projects, experience, education, certificates,
 socials, HUD values. Edit it without touching components.
+
+**Translations:** English is the base. UI strings live in `src/i18n/ui.js` (a missing Turkish key falls
+back to English); Turkish versions of the project, experience, education and certificate data live in
+`src/i18n/content.tr.js`, keyed by `id`. Change English copy in `constants/index.js` and mirror it there —
+`npm test` checks the Turkish files cover every project and keep the same list lengths. To add a language,
+add it to `LANGS` and `ui` in `ui.js` and add a `content.<lang>.js` override file to `useContent.js`.
 
 - **Tech logos** are mapped once in `techIcons` (files under `public/assets/icons/`); any
   project `stack` / `logos` entry that matches renders with its logo.

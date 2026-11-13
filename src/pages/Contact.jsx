@@ -5,6 +5,7 @@ import useAlert from '../hooks/useAlert.js';
 import Alert from '../components/Alert.jsx';
 import Footer from '../sections/Footer.jsx';
 import { CV_PATH } from '../constants/index.js';
+import useLang from '../i18n/useLang.js';
 
 const EMAIL = 'osmansahinguler@gmail.com';
 
@@ -16,14 +17,15 @@ const EMAILJS_SERVICE_ID = import.meta.env.VITE_APP_EMAILJS_SERVICE_ID || 'servi
 const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_APP_EMAILJS_TEMPLATE_ID || 'template_0yhwu5g';
 const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY || 'WwERb2CbFyThOom_p';
 
-const contactRows = [
+const getContactRows = (t) => [
     { href: `mailto:${EMAIL}`, label: EMAIL, tag: 'Email' },
     { href: 'https://github.com/HawkOsm', label: 'github.com/HawkOsm', tag: 'GitHub', external: true },
     { href: 'https://www.linkedin.com/in/osman-sahin-guler/', label: 'in/osman-sahin-guler', tag: 'LinkedIn', external: true },
-    { href: CV_PATH, label: 'Download my résumé', tag: 'CV', download: true },
+    { href: CV_PATH, label: t.contact.cv, tag: 'CV', download: true },
 ];
 
 const Contact = () => {
+    const { t } = useLang();
     const formRef = useRef();
     const { alert, showAlert, hideAlert } = useAlert();
     const [loading, setLoading] = useState(false);
@@ -54,7 +56,7 @@ const Contact = () => {
             .then(
                 () => {
                     setLoading(false);
-                    showAlert({ show: true, text: 'Message sent — I usually reply within a day.', type: 'success' });
+                    showAlert({ show: true, text: t.contact.sent, type: 'success' });
                     setTimeout(() => {
                         hideAlert();
                         setForm({ name: '', email: '', company: '', message: '' });
@@ -63,7 +65,7 @@ const Contact = () => {
                 (error) => {
                     setLoading(false);
                     console.error(error);
-                    showAlert({ show: true, text: `Sending failed — email me directly at ${EMAIL}.`, type: 'danger' });
+                    showAlert({ show: true, text: t.contact.failed(EMAIL), type: 'danger' });
                 }
             );
     };
@@ -74,20 +76,19 @@ const Contact = () => {
 
             <section className="container-site py-16 md:py-24 grid lg:grid-cols-2 gap-10 lg:gap-20 items-start">
                 <div>
-                    <p className="eyebrow mb-6">Contact</p>
+                    <p className="eyebrow mb-6">{t.contact.eyebrow}</p>
                     <h1
                         className="font-display font-bold leading-[0.96] tracking-[-0.035em] mb-6"
                         style={{ fontSize: 'clamp(2.4rem, 6vw, 5rem)' }}
                     >
-                        Let&apos;s build<br />something.
+                        {t.contact.h1[0]}<br />{t.contact.h1[1]}
                     </h1>
                     <p className="text-muted leading-[1.75] text-base mb-11 max-w-[44ch]">
-                        Looking for an intern or junior engineer who ships real systems? I&apos;m open to
-                        remote work and internships, anywhere in the world. I usually reply within a day.
+                        {t.contact.lead}
                     </p>
 
                     <div className="flex flex-col border-t border-line">
-                        {contactRows.map((row) => (
+                        {getContactRows(t).map((row) => (
                             <a
                                 key={row.tag}
                                 href={row.href}
@@ -104,8 +105,8 @@ const Contact = () => {
                 </div>
 
                 <div className="bg-panel border border-line rounded-[20px] p-6 sm:p-9 lg:sticky lg:top-24">
-                    <h2 className="font-display font-semibold text-xl tracking-[-0.01em] mb-1.5">Send a message</h2>
-                    <p className="text-muted text-sm mb-6.5">Tell me about the role or project.</p>
+                    <h2 className="font-display font-semibold text-xl tracking-[-0.01em] mb-1.5">{t.contact.sendTitle}</h2>
+                    <p className="text-muted text-sm mb-6.5">{t.contact.sendSub}</p>
 
                     <form ref={formRef} onSubmit={handleSubmit} className="flex flex-col gap-3.5">
                         <input
@@ -114,7 +115,7 @@ const Contact = () => {
                             name="name"
                             value={form.name}
                             onChange={handleChange}
-                            placeholder="Your name"
+                            placeholder={t.contact.namePh}
                             required
                         />
                         <input
@@ -123,7 +124,7 @@ const Contact = () => {
                             name="email"
                             value={form.email}
                             onChange={handleChange}
-                            placeholder="you@company.com"
+                            placeholder={t.contact.emailPh}
                             required
                         />
                         <input
@@ -132,7 +133,7 @@ const Contact = () => {
                             name="company"
                             value={form.company}
                             onChange={handleChange}
-                            placeholder="Company / university (optional)"
+                            placeholder={t.contact.companyPh}
                         />
                         <textarea
                             className="field-input"
@@ -140,17 +141,17 @@ const Contact = () => {
                             value={form.message}
                             onChange={handleChange}
                             rows={6}
-                            placeholder="What are you working on?"
+                            placeholder={t.contact.messagePh}
                             required
                         />
                         <button type="submit" disabled={loading} className="btn-primary justify-center mt-1">
-                            {loading ? 'Sending…' : 'Send message →'}
+                            {loading ? t.contact.sending : t.contact.send}
                         </button>
                     </form>
                 </div>
             </section>
 
-            <Footer link={{ href: '/projects', label: 'See the projects →' }} />
+            <Footer link={{ href: '/projects', label: t.footer.seeProjects }} />
         </>
     );
 };

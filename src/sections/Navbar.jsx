@@ -1,44 +1,72 @@
 import { useState } from 'react';
 import { Link, useRouter } from '../router.jsx';
 import { CV_PATH } from '../constants/index.js';
+import useLang from '../i18n/useLang.js';
+import { LANGS } from '../i18n/ui.js';
 
 const navLinks = [
-    { name: 'Home', href: '/' },
-    { name: 'About', href: '/about' },
-    { name: 'Projects', href: '/projects' },
-    { name: 'Contact', href: '/contact' },
+    { key: 'home', href: '/' },
+    { key: 'about', href: '/about' },
+    { key: 'projects', href: '/projects' },
+    { key: 'contact', href: '/contact' },
 ];
 
-const NavItems = ({ pathname, onLinkClick }) => (
-    <ul className="flex max-sm:flex-col items-center gap-1 sm:gap-6">
-        {navLinks.map(({ href, name }) => (
-            <li key={href} className="max-sm:w-full">
-                <Link
-                    href={href}
-                    onClick={onLinkClick}
-                    className={`block text-[13px] transition-colors py-2 max-sm:px-2 max-sm:text-center ${
-                        pathname === href ? 'text-paper' : 'text-muted hover:text-paper'
-                    }`}
+const LanguageSwitch = () => {
+    const { lang, setLang, t } = useLang();
+    return (
+        <div role="group" aria-label={t.nav.language} className="flex items-center gap-1 text-[12px] font-medium tracking-[0.08em]">
+            {LANGS.map((code) => (
+                <button
+                    key={code}
+                    type="button"
+                    onClick={() => setLang(code)}
+                    aria-pressed={lang === code}
+                    className={`px-1.5 py-1 uppercase transition-colors ${lang === code ? 'text-accent' : 'text-muted hover:text-paper'}`}
                 >
-                    {name}
-                </Link>
+                    {code}
+                </button>
+            ))}
+        </div>
+    );
+};
+
+const NavItems = ({ pathname, onLinkClick }) => {
+    const { t } = useLang();
+    return (
+        <ul className="flex max-sm:flex-col items-center gap-1 sm:gap-6">
+            {navLinks.map(({ href, key }) => (
+                <li key={href} className="max-sm:w-full">
+                    <Link
+                        href={href}
+                        onClick={onLinkClick}
+                        className={`block text-[13px] transition-colors py-2 max-sm:px-2 max-sm:text-center ${
+                            pathname === href ? 'text-paper' : 'text-muted hover:text-paper'
+                        }`}
+                    >
+                        {t.nav[key]}
+                    </Link>
+                </li>
+            ))}
+            <li className="max-sm:w-full max-sm:mt-2">
+                <a
+                    href={CV_PATH}
+                    download
+                    className="block text-[13px] font-medium text-ink bg-accent rounded-full px-[18px] py-[9px] text-center hover:bg-accent-hover transition-colors whitespace-nowrap"
+                >
+                    {t.nav.requestCv}
+                </a>
             </li>
-        ))}
-        <li className="max-sm:w-full max-sm:mt-2">
-            <a
-                href={CV_PATH}
-                download
-                className="block text-[13px] font-medium text-ink bg-accent rounded-full px-[18px] py-[9px] text-center hover:bg-accent-hover transition-colors whitespace-nowrap"
-            >
-                Request CV
-            </a>
-        </li>
-    </ul>
-);
+            <li className="max-sm:w-full max-sm:flex max-sm:justify-center">
+                <LanguageSwitch />
+            </li>
+        </ul>
+    );
+};
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { location } = useRouter();
+    const { t } = useLang();
 
     return (
         <header
@@ -53,10 +81,10 @@ const Navbar = () => {
                 <button
                     onClick={() => setIsOpen((v) => !v)}
                     className="sm:hidden text-[13px] font-medium text-muted hover:text-paper"
-                    aria-label="Toggle menu"
+                    aria-label={t.nav.toggleMenu}
                     aria-expanded={isOpen}
                 >
-                    {isOpen ? 'Close' : 'Menu'}
+                    {isOpen ? t.nav.close : t.nav.menu}
                 </button>
 
                 <nav className="hidden sm:block">
