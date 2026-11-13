@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/react';
 import { RouterProvider, useRouter } from './router.jsx';
 import AnnouncementBar from './sections/AnnouncementBar.jsx';
 import Navbar from './sections/Navbar.jsx';
@@ -21,6 +22,7 @@ const App = () => (
             <Navbar />
             <Routes />
         </main>
+        <Analytics />
     </RouterProvider>
 );
 
