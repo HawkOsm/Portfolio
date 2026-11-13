@@ -139,10 +139,11 @@ export const projects = [
             'A book mode that shows the real PDF page with the current word highlighted and selectable text, or reflows text and EPUB files into pages; click any word to continue from there.',
             'An IndexedDB library that remembers your place in every book and offers to resume it — fully local, with no account, and your books never leave the device.',
             'One React codebase shipped as an installable offline web app, desktop installers via Tauri and an Android app via Capacitor. Downloads shrank from 55.5 MB to 2.7 MB on Windows, 49.8 MB to 7.3 MB on macOS and 17.1 MB to 5 MB on Android.',
+            'v0.3 adds two experimental, off-by-default features: syncing your reading position, shelves and notes through a hidden folder of your own Google Drive, and notes on a passage.',
             'Pushing a version tag builds one download each for Linux, Windows, macOS and Android in GitHub Actions; 184 tests run on every push.',
         ],
         todo: [],
-        stack: ['TypeScript', 'React', 'Tauri', 'Rust', 'Capacitor', 'Android', 'IndexedDB', 'pdf.js', 'Vite'],
+        stack: ['TypeScript', 'React', 'Tauri', 'Rust', 'Capacitor', 'Android', 'IndexedDB', 'MuPDF', 'Vite'],
         logos: ['React', 'Rust', 'Android'],
     },
     {
@@ -165,8 +166,8 @@ export const projects = [
         stack: ['Linux', 'Bash', 'Git'],
         logos: ['Linux', 'Bash', 'Git'],
     },
-
 ];
+
 export const education = {
     period: 'SEP 2024 — CURRENT',
     org: 'Yaşar University, Izmir',
