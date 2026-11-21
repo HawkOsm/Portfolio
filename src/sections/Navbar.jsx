@@ -28,7 +28,7 @@ const NavItems = ({ pathname, onLinkClick }) => (
             <a
                 href={CV_PATH}
                 download
-                className="block text-[13px] font-medium text-ink bg-accent rounded-full px-[18px] py-[9px] text-center hover:bg-accent-hover transition-colors whitespace-nowrap"
+                className="block text-[13px] font-medium text-accent border border-accent rounded-full px-[18px] py-[9px] text-center hover:bg-accent/10 transition-colors whitespace-nowrap"
             >
                 Request CV
             </a>

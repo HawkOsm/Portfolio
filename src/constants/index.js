@@ -1,7 +1,7 @@
 export const hud = [
     { label: 'Status', value: 'Open · Jan 2027' },
     { label: 'Location', value: 'Izmir, TR / remote' },
-    { label: 'Focus', value: 'AI Technologies · MLOps' },
+    { label: 'Focus', value: 'Computer vision · MLOps · Full-stack' },
 ];
 
 // Single source of truth for tech-name -> logo (slug of the file under public/assets/icons/<slug>.svg,
@@ -40,14 +40,14 @@ export const projects = [
         link: 'https://github.com/HawkOsm/Savasan-IHA-Kamikaze',
         short: 'Vision-guided terminal dive on ArduPilot + Jetson.',
         body: 'Flight software, built by a 15-person team, for a competition drone that autonomously dives on a ground target. A dual-model YOLO11 pipeline on the onboard Jetson locks onto the target, then a QR reader confirms the hit mid-dive. Finished 17th of 42 finalists — out of 1,032 applicant teams — at TEKNOFEST 2026 Savaşan İHA.',
-        problem: 'In the Savaşan İHA competition the aircraft has to find, lock and dive onto a moving ground target without a pilot in the loop — under a shaky downlink, with a few seconds of usable approach time and no second attempt.',
+        problem: 'In the Savaşan İHA competition the aircraft has to find, lock and dive onto a fixed 2 × 2 m QR target on the ground without a pilot in the loop — under a shaky downlink, with a few seconds of usable approach time and no second attempt.',
         built: [
             'Mission state machine over ArduPilot and MAVLink: takeoff, search pattern, target lock, terminal dive, abort-and-climb.',
-            'Two-stage YOLO11 detection on the onboard Jetson — a wide model to acquire, a tight model to track through the dive.',
+            'Two-stage YOLO11 detection on the onboard Jetson — a wide model to acquire, a tight model to track through the dive. I wrote the first version; a teammate later improved it.',
             'QR confirmation step that verifies the correct target mid-dive before the run is scored.',
             'Low-latency video over GStreamer on Raspberry Pi, with a Dockerised ground station for telemetry and replay.',
             'Tested the mission logic in Gazebo + ArduPilot SITL (Mini Talon model, a world with the QR target) before real flights, then documented where simulation diverges from the real H-tail plane — 902 of 1,585 parameters differ.',
-            'Passed the competition hit check on the real dive.',
+            'Met the competition\'s hit-check rule on a real dive: the whole QR inside the frame and decoded during the dive.',
             'Measured 19 real QR dives on 2026-07-27 (ArduPlane 4.6.3): median 8.5 s, 90 m of height lost, 10.9 m/s mean sink, steepest pitch −42.6°. Tuning TECS_SPDWEIGHT to 0 roughly doubled sink rate versus 1.',
         ],
         video: { src: '/assets/projects/kamikaze-dive.mp4', poster: '/assets/projects/kamikaze-dive-poster.webp', label: 'Ground-station screen recording of a real autonomous QR dive.' },
@@ -56,17 +56,39 @@ export const projects = [
         logos: ['Python', 'OpenCV', 'NVIDIA Jetson', 'Docker', 'Linux'],
     },
     {
-        id: 'senior-app',
+        id: 'skysat',
         num: '02',
+        title: 'SkySat — MLOps for a small LLM',
+        tag: 'MLOps · Team Project',
+        role: 'Built most of it, in a team of two',
+        link: 'https://github.com/deensza/skysat-mlops',
+        short: 'A model that retrains itself when its answers start to drift.',
+        body: 'Term project for SE4458 at Yaşar University, built with one teammate. SkySat is a complaint box for airline reviews: a small language model (Qwen2.5-1.5B, LoRA-tuned) reads a review and answers with a score out of 10, whether the reviewer would recommend the airline, and the main complaint. The model is the small part; the project is everything around it, from the moment a review arrives to the moment a better model replaces the one that is serving.',
+        problem: 'A model that scores well on the day it ships gets worse as the reviews it sees change, and nobody notices until someone checks. We wanted the system to notice by itself, retrain on the new reviews, and replace the serving model only if the new one is measurably better.',
+        built: [
+            'Reviews arrive over an API and wait in a PostgreSQL queue; each live review is also scored by the serving model and logged with its true labels.',
+            'A drift check compares the serving model\'s live error with fixed limits on at least 100 labelled requests, and opens an alarm when it is past them.',
+            'The alarm starts a GitHub Actions workflow that rents a RunPod GPU, LoRA-trains on the queued reviews, and deletes the GPU afterwards. One run on 18 Nov 2026 took 8 min 43 s on an RTX 3080 Ti, about 3 cents.',
+            'A quality gate registers a new version in MLflow only if it passes fixed limits and beats the current champion on the same held-back reviews; the server then loads it by itself.',
+            'On "harsh" reviews the first model\'s score error (MAE) rose from 0.95 to 1.15 and the drift check fired; the retrained version scored 0.55 on new harsh reviews.',
+            'FastAPI behind Nginx for serving, Grafana for monitoring, Docker for packaging, a k6 load test, and 166 automated tests that run in CI.',
+        ],
+        todo: [],
+        stack: ['Python', 'Qwen2.5 · LoRA', 'MLflow', 'FastAPI', 'PostgreSQL', 'Docker', 'Nginx', 'Grafana', 'RunPod', 'k6', 'GitHub Actions'],
+        logos: ['Python', 'Docker'],
+    },
+    {
+        id: 'senior-app',
+        num: '03',
         title: 'Senior Project Management Platform',
         tag: 'Web App · Team Project',
-        role: 'Team Captain',
+        role: 'Captain of one of the two scrum teams',
         link: 'https://github.com/SE3318-Spring-2025-2026/senior-app-1',
         short: 'Coordinating a capstone team on the tool the whole course runs on.',
-        body: 'Built for SE3318 at Yaşar University with a ~10-person team. As team captain I broke every feature into Backend/Frontend/QA sub-tasks, opened 138 of the repo\'s issues and wrote 148 of its 631 commits across 28 pull requests. After patching model mismatches and missing modules one by one in the first weeks, I realized the auth and role architecture needed a ground-up rewrite — so I redesigned and reimplemented it, then wrote most of the project\'s data-flow diagrams and API docs. I also built the AI orchestration layer: a provider-agnostic service that defaults to a local Ollama model at zero cloud cost and switches to Anthropic\'s Claude API via a single env var.',
+        body: 'Built for SE3318 at Yaşar University with a 13-person team split into two scrum teams; I captained one of them, seven people including me. I broke every feature into Backend/Frontend/QA sub-tasks, opened 138 of the repo\'s 229 issues and merged 27 of my 28 pull requests. After patching model mismatches and missing modules one by one in the first weeks, I realized the auth and role architecture needed a ground-up rewrite — so I redesigned and reimplemented it, then wrote most of the project\'s data-flow diagrams and API docs. I also built the AI orchestration layer: a provider-agnostic service that defaults to a local Ollama model at zero cloud cost and switches to Anthropic\'s Claude API via a single env var.',
         problem: 'University capstone courses track dozens of teams across JIRA, GitHub, and document submissions by spreadsheet. We needed a single platform where coordinators set grading rubrics once, advisors see live sprint progress, and AI flags whether a pull request was actually reviewed or just rubber-stamped.',
         built: [
-            'Broke every feature into Backend/Frontend/QA sub-tasks across 138 issues and 28 pull requests as team captain.',
+            'Broke every feature into Backend/Frontend/QA sub-tasks across 138 issues and 28 pull requests as captain of a seven-person scrum team.',
             'Rebuilt the authentication and role-based UI architecture from scratch after the initial patchwork proved unsustainable.',
             'Built a provider-agnostic AI service — local Ollama by default, Anthropic Claude via an env-var toggle — for AI-assisted code-review verification.',
             'Wrote the project\'s data-flow diagrams and most of its API documentation.',
@@ -77,7 +99,7 @@ export const projects = [
     },
     {
         id: 'blackbox',
-        num: '03',
+        num: '04',
         title: 'Blackbox — an error logger for Linux',
         tag: 'Systems · Linux',
         role: 'Solo — design and build',
@@ -125,7 +147,7 @@ export const projects = [
     },
     {
         id: 'rsvp-reader',
-        num: '04',
+        num: '05',
         title: 'RSVP Reader',
         tag: 'Web, Desktop & Android App',
         role: 'Solo — design and build',
@@ -148,7 +170,7 @@ export const projects = [
     },
     {
         id: 'clevo-linux-fixes',
-        num: '05',
+        num: '06',
         title: 'Clevo Linux Fixes',
         tag: 'Open Source',
         role: 'Author and maintainer',
@@ -168,7 +190,7 @@ export const projects = [
     },
     {
         id: 'trend-detective',
-        num: '06',
+        num: '07',
         title: 'Trend Detective',
         tag: 'Hackathon · Earth Science',
         role: 'Solo — design, data pipeline and verification',
@@ -201,7 +223,7 @@ export const education = {
 export const certificates = [
     { id: 'nasa-space-apps-2026', title: 'Galactic Problem Solver — NASA Space Apps Challenge 2026', org: 'NASA Space Apps Challenge', date: 'NOV 2026', image: '/assets/certificates/nasa-space-apps-2026.webp' },
     { id: 'gdg-core-team', title: 'Core Team Member — GDG on Campus Yaşar University', org: 'Google Developer Group on Campus', date: 'OCT 2026', image: '/assets/certificates/gdg-core-team.webp' },
-    { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition', org: 'T3 Foundation', date: 'SEP 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
+    { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Finalist', org: 'T3 Foundation', date: 'SEP 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
     { id: 'yasar-efes', title: 'EFES-2026 Defense Project Contest', org: 'Yaşar University — Rectorate letter', date: 'JUN 2026', image: '/assets/certificates/yasar-university-efes.jpg' },
     { id: 'ai4purpose', title: 'AI4Purpose Hackathon', org: 'Interreg NEXT MED · İzmir Katip Çelebi University', date: 'JAN — FEB 2026', image: '/assets/certificates/ai4purpose-hackathon.png' },
     { id: 'thm-ethical-hacking', title: 'Ethical Hacking Foundations', org: 'TryHackMe', date: 'JUL 2025', image: '/assets/certificates/thm-ethical-hacking.png' },
@@ -228,9 +250,7 @@ export const experience = [
         org: 'CLB Automation',
         role: 'Software Developer — Intern / Prototype',
         notes: [
-            'Computer-vision prototypes for industrial object detection with OpenCV and YOLOv5.',
-            'Model training and hyperparameter optimization on custom-labeled datasets.',
-            'Performance profiling on real-time data processing pipelines.',
+            'Built a computer-vision prototype (OpenCV, YOLO) that flags defects in a press machine\'s camera footage and alerts the operator, trained on footage supplied by the company.',
         ],
     },
 ];
@@ -238,11 +258,11 @@ export const experience = [
 export const instruments = [
     {
         group: 'Languages',
-        items: ['Python', 'C++', 'JavaScript / React', 'Rust', 'Bash', 'C', 'Java', 'SQL'],
+        items: ['Python', 'TypeScript', 'JavaScript / React', 'Rust', 'C++', 'Bash', 'C', 'Java', 'SQL'],
     },
     {
         group: 'AI Stack',
-        items: ['OpenCV', 'YOLO', 'NumPy', 'PyTorch', 'TensorFlow', 'pandas'],
+        items: ['OpenCV', 'YOLO', 'NumPy', 'pandas', 'LoRA fine-tuning', 'MLflow'],
     },
     {
         group: 'Systems & Ops',
