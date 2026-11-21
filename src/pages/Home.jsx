@@ -54,7 +54,7 @@ const Home = () => {
                             I&apos;m Osman, a <span className="text-accent">software engineer.</span>
                         </h1>
                         <p className="mt-5 max-w-[72ch] text-base text-muted leading-[1.7]">
-                            Autonomous systems and computer vision · full-stack · applied AI/ML.
+                            Software Engineering student at Yaşar University.
                         </p>
                         <div className="flex flex-wrap items-center gap-4 mt-7">
                             <Link href="/contact" className="btn-primary">Hire me →</Link>

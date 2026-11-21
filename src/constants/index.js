@@ -1,7 +1,7 @@
 export const hud = [
     { label: 'Status', value: 'Open · Jan 2027' },
     { label: 'Location', value: 'Izmir, TR / remote' },
-    { label: 'Focus', value: 'Computer vision · MLOps · Full-stack' },
+    { label: 'Focus', value: 'Backend · MLOps' },
 ];
 
 // Single source of truth for tech-name -> logo (slug of the file under public/assets/icons/<slug>.svg,

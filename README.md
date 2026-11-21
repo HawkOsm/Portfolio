@@ -2,7 +2,7 @@
 
 # osmansahinguler.com
 
-**Personal portfolio of Osman Şahin Güler** — Software Engineering student: autonomous systems and computer vision, full-stack, applied AI/ML.
+**Personal portfolio of Osman Şahin Güler** — Software Engineering student at Yaşar University.
 
 [![Live site](https://img.shields.io/badge/live-osmansahinguler.com-5EE6C4?style=flat-square&labelColor=0C0D0E)](https://osmansahinguler.com)
 [![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=white&labelColor=0C0D0E)](https://react.dev)
