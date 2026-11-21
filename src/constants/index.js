@@ -188,29 +188,6 @@ export const projects = [
         stack: ['Linux', 'Bash', 'Git'],
         logos: ['Linux', 'Bash', 'Git'],
     },
-    {
-        id: 'trend-detective',
-        num: '07',
-        title: 'Trend Detective',
-        tag: 'Hackathon · Earth Science',
-        role: 'Solo — design, data pipeline and verification',
-        link: 'https://github.com/HawkOsm/NASA-Earth-System-Trend-Detective',
-        short: 'A 3D globe of how the Earth changed, 1981–2025 — and how far to trust each trend.',
-        body: 'My entry for the NASA Space Apps Challenge 2026, challenge "Be An Earth System Trend Detective", built over the hackathon weekend. A 3D globe is coloured by how fast one of ten NASA POWER / MERRA-2 variables — air temperature, rainfall, soil moisture, snow cover, sea ice, ozone and more — changed between 1981 and 2025. Click any place, country or sea and a panel shows its yearly series, the trend, a p-value, a 95% confidence range and a one-sentence verdict, together with a grade saying how far that trend can be trusted.',
-        problem: 'A trend on a map can be statistically significant and still be wrong: a jump when a satellite instrument changed, one bad year, or a reanalysis model drifting away from what was actually measured. Most trend viewers show the number and stop there. I wanted every trend to come with the evidence for and against believing it.',
-        built: [
-            'An offline Python pipeline that computes a Theil–Sen slope, Sen\'s confidence interval and a Mann–Kendall test (with a lag-1 autocorrelation correction) for each of 207,936 grid cells, with Benjamini–Hochberg false-discovery control across the map.',
-            'The same statistics written again in TypeScript, so the browser recomputes the map for any chosen period in Web Workers; both versions are tested against shared fixtures and agree to 1e-12.',
-            'A grade on every trend — Robust, Use with caution or Doubtful — from fixed checks for a jump, one unusual year, a reversal and sensitivity to the end years, calibrated on 2,000 synthetic series per scenario.',
-            'An independent-record check against NASA GISTEMP and GHCN-CAMS for temperature and four gauge and satellite records for rainfall. It confirms 89.9% of the significant temperature trends by area, but only 20.1% of the rainfall ones — so the site says so.',
-            'A satellite check against MODIS, OMI, AIRS, GPM and the GLDAS model over the years they share with MERRA-2.',
-            'Country, sea and ocean views that lift an area out of the globe with its own grid cells, provinces and cities, a guided first-visit tour, and a "Detective" that ranks what is changing at a typed place — Gemini only reads the question; every number comes from the precomputed trends.',
-        ],
-        image: { src: '/assets/projects/trend-detective-globe.webp', alt: 'The Trend Detective globe coloured by the trend in air temperature over Europe and Africa, 1981–2025, with the data, period, scale, click and layers menu on the left.' },
-        todo: [],
-        stack: ['Python', 'NumPy · SciPy · xarray', 'TypeScript', 'React', 'react-globe.gl · three.js', 'uPlot', 'Web Workers', 'Vite', 'Gemini API', 'GitHub Actions'],
-        logos: ['Python', 'React'],
-    },
 ];
 
 export const education = {
@@ -223,7 +200,7 @@ export const education = {
 export const certificates = [
     { id: 'nasa-space-apps-2026', title: 'Galactic Problem Solver — NASA Space Apps Challenge 2026', org: 'NASA Space Apps Challenge', date: 'NOV 2026', image: '/assets/certificates/nasa-space-apps-2026.webp' },
     { id: 'gdg-core-team', title: 'Core Team Member — GDG on Campus Yaşar University', org: 'Google Developer Group on Campus', date: 'OCT 2026', image: '/assets/certificates/gdg-core-team.webp' },
-    { id: 'teknofest-2026-finalist', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Finalist', org: 'TEKNOFEST · Ministry of Industry and Technology', date: '2026', image: '/assets/certificates/teknofest-2026-finalist.webp', verifyUrl: 'https://drdogrulama.sanayi.gov.tr/tr/verify/22746121644852/' },
+    { id: 'teknofest-2026-finalist', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Finalist', org: 'TEKNOFEST · Ministry of Industry and Technology', date: 'NOV 2026', image: '/assets/certificates/teknofest-2026-finalist.webp', verifyUrl: 'https://drdogrulama.sanayi.gov.tr/tr/verify/22746121644852/' },
     { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Participation', org: 'T3 Foundation', date: 'SEP — OCT 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
     { id: 'yasar-efes', title: 'EFES-2026 Defense Project Contest', org: 'Yaşar University — Rectorate letter', date: 'JUN 2026', image: '/assets/certificates/yasar-university-efes.jpg' },
     { id: 'ai4purpose', title: 'AI4Purpose Hackathon', org: 'Interreg NEXT MED · İzmir Katip Çelebi University', date: 'JAN — FEB 2026', image: '/assets/certificates/ai4purpose-hackathon.png' },
