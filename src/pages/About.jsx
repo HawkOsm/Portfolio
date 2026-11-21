@@ -123,6 +123,7 @@ const About = () => {
                                 {cert.date && <span className="text-[11px] tracking-[0.06em] text-faint">{cert.date}</span>}
                                 <div className="font-display font-semibold text-[15px] mt-1">{cert.title}</div>
                                 <p className="text-muted text-[13px] mt-1 leading-[1.5]">{cert.org}</p>
+                                {cert.verifyUrl && <span className="block text-accent text-[12px] mt-1.5">Verifiable online</span>}
                             </button>
                         </Reveal>
                     ))}

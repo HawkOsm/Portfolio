@@ -46,7 +46,22 @@ const CertificateOverlay = ({ cert, onClose }) => {
                         <h2 className="font-display font-bold tracking-[-0.02em] leading-[1.1] mt-2 text-[clamp(1.3rem,2.6vw,2rem)]">
                             {cert.title}
                         </h2>
-                        <p className="text-muted text-[15px] mt-2 mb-6">{cert.org}</p>
+                        <p className="text-muted text-[15px] mt-2 mb-6">
+                            {cert.org}
+                            {cert.verifyUrl && (
+                                <>
+                                    {' · '}
+                                    <a
+                                        href={cert.verifyUrl}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="text-accent underline underline-offset-4 hover:text-accent-hover"
+                                    >
+                                        Verify this certificate ↗
+                                    </a>
+                                </>
+                            )}
+                        </p>
                         <img
                             src={cert.image}
                             alt={cert.title}

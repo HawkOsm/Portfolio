@@ -223,7 +223,8 @@ export const education = {
 export const certificates = [
     { id: 'nasa-space-apps-2026', title: 'Galactic Problem Solver — NASA Space Apps Challenge 2026', org: 'NASA Space Apps Challenge', date: 'NOV 2026', image: '/assets/certificates/nasa-space-apps-2026.webp' },
     { id: 'gdg-core-team', title: 'Core Team Member — GDG on Campus Yaşar University', org: 'Google Developer Group on Campus', date: 'OCT 2026', image: '/assets/certificates/gdg-core-team.webp' },
-    { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Finalist', org: 'T3 Foundation', date: 'SEP 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
+    { id: 'teknofest-2026-finalist', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Finalist', org: 'TEKNOFEST · Ministry of Industry and Technology', date: '2026', image: '/assets/certificates/teknofest-2026-finalist.webp', verifyUrl: 'https://drdogrulama.sanayi.gov.tr/tr/verify/22746121644852/' },
+    { id: 'teknofest-2026', title: 'TEKNOFEST 2026 Savaşan İHA Competition — Participation', org: 'T3 Foundation', date: 'SEP — OCT 2026', image: '/assets/certificates/Savasan IHA.jpeg' },
     { id: 'yasar-efes', title: 'EFES-2026 Defense Project Contest', org: 'Yaşar University — Rectorate letter', date: 'JUN 2026', image: '/assets/certificates/yasar-university-efes.jpg' },
     { id: 'ai4purpose', title: 'AI4Purpose Hackathon', org: 'Interreg NEXT MED · İzmir Katip Çelebi University', date: 'JAN — FEB 2026', image: '/assets/certificates/ai4purpose-hackathon.png' },
     { id: 'thm-ethical-hacking', title: 'Ethical Hacking Foundations', org: 'TryHackMe', date: 'JUL 2025', image: '/assets/certificates/thm-ethical-hacking.png' },
